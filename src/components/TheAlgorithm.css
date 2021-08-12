@@ -1,5 +1,5 @@
   .services {
-    margin-top: 87vh;
+    margin-top: 100vh;
     padding-top: 200px;
     padding-bottom: 200px;
     background: #000;
@@ -81,7 +81,6 @@
   
   .services__card button:hover {
     cursor: pointer;
-  
   }
   
   .services__card:hover {

@@ -1,8 +1,8 @@
-import React from 'react'; 
+import React, { Component } from 'react'; 
 import "./TheAlgorithm.css";
 
-function TheAlgorithm () { 
-    return (
+class TheAlgorithm extends Component () { 
+    render () {
         <div className="services">
             <h1 className="hideme">THE SYNDICATE UTILITY</h1>
             <div className="services__container">
@@ -20,6 +20,6 @@ function TheAlgorithm () {
                 </div>
             </div>
         </div>
-    );
+    }
 }
 export default TheAlgorithm

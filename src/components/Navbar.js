@@ -1,13 +1,13 @@
-import React, { useState } from 'react'; 
+import React, { Component, useState } from 'react'; 
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar () { 
+class Navbar extends Component () { 
     const [click, setClick] = useState(false);
 
     const handleClick = () => setClick(!click);
 
-    return (
+    render () {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink exact to="/" className="nav-logo">
@@ -65,7 +65,7 @@ function Navbar () {
           </div>
         </div>
       </nav>
-    );
+    }
 }
 
 export default Navbar
