@@ -1,6 +1,16 @@
-.token { 
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-  display: inline-block;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'VT323', monospace;
+}
+
+body {
+  background-color: #000;
+}
+
+.pages {
+  color: #676a6b;
+  text-align: center;
+  font-size: 3.5rem;
+  margin-top: 10%;
 }

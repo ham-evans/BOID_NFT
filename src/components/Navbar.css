@@ -1,0 +1,134 @@
+.navbar {
+    background-color: transparent;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    top: 0;
+    z-index: 20;
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    max-width: 1500px;
+  }
+  
+  .nav-logo {
+    color: #fff;
+    align-items: center;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    margin-right: auto;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 4rem;
+    flex-grow: 1;
+    max-width: 180px;
+    z-index: 2;
+  }
+
+  .nav-logo:hover{ 
+    color: #fff;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .nav-links {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+  }
+  .fa-code {
+    margin-left: 1rem;
+  }
+  
+  .nav-item {
+    line-height: 40px;
+    margin-right: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .nav-item:after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: transparent;
+    transition: width 0.7s ease, background-color 0.5s ease;
+  }
+
+  .nav-item a { 
+      color: #fff
+  }
+
+  .nav-item:hover:after {
+    width: 100%;
+    background: #fff;
+    color: #fff;
+  }
+  
+  .nav-item .active {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 4px;
+  }
+  
+  .nav-icon {
+    display: none;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: -500%;
+      opacity: 1;
+      transition: all 0.5s ease;
+      margin-right: 0;
+
+    }
+  
+    .nav-menu.active {
+      background: transparent;
+      top: 80px;
+      left: 0px;
+      right: 0px;
+      opacity: 1;
+      transition: all 0.5s ease;
+    }
+    .nav-item .active {
+      color: #fff;
+      border: none;
+    }
+    .nav-links {
+      padding: 1.5rem;
+      width: 100%;
+      display: table;
+    }
+  
+    .nav-icon {
+      display: block;
+      top: 0;
+      right: 0;
+      transform: translate(-100%, 60%);
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #fff;
+      margin-bottom: 65px;
+    }
+  }
+  
