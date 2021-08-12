@@ -6,20 +6,22 @@ from time import sleep, time
 
 imgNumber = 600
 numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
-"""
-changeColor=True
-initialColor="random"
-linesBetween=True
+
+changeColor=False
+initialColor=(51,255,153)
+linesBetween=False
 historyTrace = False
 numBoids=80
-speedLimit=5
-"""
-width = 1200
-height = 660
+speedLimit=6
+fadeColor=(False, (0,0,0))
+
+numBoids=30
+width = 400
+height = 525
 visualRange = 75
 colorRange = visualRange - (visualRange / 6)
 
-#visualRange = 60
+visualRange = 50
 
 boids = []
 colors = []
@@ -45,7 +47,7 @@ class Boid:
             self.color = initialColor
         self.randomFade = (randint(0,255), randint(0,255), randint(0,255))
         self.selfColor = self.color
-        
+
     def coords(self):
         return (self.x, self.y)
 
@@ -100,7 +102,7 @@ def flyToCenter (currBoid):
 
         currBoid.dx += (centerX - currBoid.x) * centeringFactor
         currBoid.dy += (centerY - currBoid.y) * centeringFactor
-    
+
 def avoidOthers (currBoid):
     minDistance = 20
     avoidFactor = 0.05 # Adjust velo here
@@ -242,6 +244,7 @@ def makeMoves (forwardSteps, slowdownSteps):
                 boid.totalHistory.append([boid.x, boid.y])
 
 def main ():
+    theOne = None
     global backgroundColor
 
     initPositions()
@@ -261,7 +264,7 @@ def main ():
     running = True
     while running:
         steps += 1
-
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -270,11 +273,11 @@ def main ():
             backgroundColor = colorFade(None, backgroundColor, (255,193,37), steps, totalSteps)
 
         screen.fill(backgroundColor)
+
+        boidLocations = []
         
         for boid in boids:
             sleep(.0001)
-            if linesBetween:
-                buildGraph(boid, screen)
 
             #Start of printing 
             if steps < len(boid.totalHistory):
@@ -310,7 +313,7 @@ def main ():
             else:
                 return
 
-            pygame.draw.circle(screen, boid.color, boid.coords(), 3)
+            boidLocations.append(boid.coords())
 
             boid.historyColor.append(boid.color)
 
@@ -320,6 +323,28 @@ def main ():
 
                 for i in range(0, len(boid.history) - 1):
                     pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
+
+
+        for boid in boids: 
+            if steps >= 100:
+                distance2 = math.sqrt(((boid.x - 200)**2) + ((boid.y - 360)**2)) 
+                if distance2 < 50: 
+                    if theOne == None: 
+                        theOne = boid
+                if boid == theOne:
+                    sleep(1)
+                    inRange = []
+                    pygame.draw.circle(screen, (128, 128, 128), boid.coords(), visualRange)
+                    for otherBoid in boids:
+                        if boid != otherBoid:
+                            if distance(otherBoid, boid) < visualRange:
+                                pygame.draw.line(screen, (255, 51, 51), boid.coords(), otherBoid.coords())
+
+        if linesBetween:
+                buildGraph(boid, screen)
+
+        for location in boidLocations:
+            pygame.draw.circle(screen, boid.color, location, 3)
 
         pygame.display.update()
         pygame.display.flip()

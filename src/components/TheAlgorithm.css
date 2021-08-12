@@ -17,8 +17,15 @@
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
-    margin-bottom: 5rem;
-    font-size: 2.5rem;
+    font-size: 4rem;
+  }
+
+  .services p { 
+    color:  #fff;
+    font-size: 1.5rem;
+    max-width: 80%;
+    margin: 3rem auto 5rem auto;
+    text-align: center;
   }
   
   .services__container {
@@ -41,9 +48,20 @@
     background-size: cover;
     position: relative;
     color: #fefffe;
-    border: 2px solid #dcb36a;
+    border: 2px solid #fff;
     border-radius: 5px;
+    transform: scale(1);
+    transition: all 0.35s;
   }
+
+  .services__card video { 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+  }
+  
   
   .services__card:nth-child(2) {
     background-image: linear-gradient(
@@ -63,26 +81,9 @@
   
   .services__card p {
     text-align: center;
-    padding: 30px 10px;
+    padding: 10px 10px;
   }
-  
-  .services__card button {
-    color: #fefffe;
-    padding: 10px 20px;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    background: #f77062;
-    position: absolute;
-    top: 440px;
-    left: 30px;
-    font-size: 1rem;
-  }
-  
-  .services__card button:hover {
-    cursor: pointer;
-  }
-  
+ 
   .services__card:hover {
     transform: scale(1.075);
     transition: all 0.35s;

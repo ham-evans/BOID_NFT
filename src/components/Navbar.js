@@ -1,13 +1,13 @@
-import React, { Component, useState } from 'react'; 
+import React, { useState } from 'react'; 
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-class Navbar extends Component () { 
+function Navbar () { 
     const [click, setClick] = useState(false);
 
     const handleClick = () => setClick(!click);
 
-    render () {
+    return (
       <nav className="navbar">
         <div className="nav-container">
           <NavLink exact to="/" className="nav-logo">
@@ -23,7 +23,7 @@ class Navbar extends Component () {
                 className="nav-links"
                 onClick={handleClick}
               >
-                THHE ALGORITHM
+                THE ALGORITHM
               </NavLink>
             </li>
             <li className="nav-item">
@@ -45,7 +45,7 @@ class Navbar extends Component () {
                 className="nav-links"
                 onClick={handleClick}
               >
-                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i className="fa fa-twitter" aria-hidden="true"></i>
               </NavLink>
             </li>
             <li className="nav-item">
@@ -56,7 +56,7 @@ class Navbar extends Component () {
                 className="nav-links"
                 onClick={handleClick}
               >
-                <i class="fab fa-discord"></i>
+                <i className="fab fa-discord"></i>
               </NavLink>
             </li>
           </ul>
@@ -65,7 +65,7 @@ class Navbar extends Component () {
           </div>
         </div>
       </nav>
-    }
+    );
 }
 
 export default Navbar
