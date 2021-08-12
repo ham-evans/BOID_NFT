@@ -103,13 +103,14 @@
     }
   
     .nav-menu.active {
-      background: transparent;
+      background: #000;
       top: 80px;
       left: 0px;
       right: 0px;
       opacity: 1;
       transition: all 0.5s ease;
     }
+
     .nav-item .active {
       color: #fff;
       border: none;

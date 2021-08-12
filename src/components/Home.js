@@ -1,23 +1,19 @@
 import React, { Component } from 'react'; 
 import bgVideo from '../images/BoidBackground.mp4';
+import './Home.css'
 
 class Home extends Component { 
     render () {
         return (
-            <video className='videoTag' autoPlay loop muted
-            style={{
-                position: "absolute", 
-                width: "100%", 
-                height: "100vh",
-                left: "50%",
-                top: "50%",
-                objectFit: "cover",
-                transform: "translate(-50%, -50%)",
-                zIndex: "-1"
-
-            }}>
-                <source src={bgVideo} typ='video/mp4' />
-            </video>
+            <div className="home">
+                <video className='videoTag' autoPlay loop muted>
+                    <source src={bgVideo} typ='video/mp4' />
+                </video>
+                <div className="home__textcontainer">
+                    <h1>BOIDS</h1>
+                    <h3>A collection of 1500 emergent art pieces deployed on the ERC-721 token</h3>
+                </div>
+            </div>
         );
     }
 }
