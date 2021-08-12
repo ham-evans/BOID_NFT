@@ -4,13 +4,22 @@ import math
 from randomGeneration import randGeneration
 from time import sleep, time
 
-imgNumber = 40
+imgNumber = 600
 numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
-
-width = 600
-height = 600
+"""
+changeColor=True
+initialColor="random"
+linesBetween=True
+historyTrace = False
+numBoids=80
+speedLimit=5
+"""
+width = 1200
+height = 660
 visualRange = 75
 colorRange = visualRange - (visualRange / 6)
+
+#visualRange = 60
 
 boids = []
 colors = []
