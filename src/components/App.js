@@ -3,8 +3,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import TheAlgorithm from './TheAlgorithm';
 import DiffBoids from './DiffBoids';
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import logo from '../logo.svg';
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import './App.css';
 import Boid from "../artifacts/contracts/Boid.sol/Boid.json"
 

@@ -21,6 +21,7 @@ def randGeneration (imgNumber):
         colorChange = False
         if initialColor == "random":
             colorChange = True
+            fadeColor=(False, (0,0,0))
         
     feed2 = randint(1, 5)
     if feed2 == 2: 

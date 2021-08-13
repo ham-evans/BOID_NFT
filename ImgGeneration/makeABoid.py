@@ -4,9 +4,10 @@ import math
 from randomGeneration import randGeneration
 from time import sleep, time
 
-imgNumber = 795
+imgNumber = 1000
 numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
 
+initialColor="random"
 width = 600
 height = 600
 visualRange = 75
@@ -261,8 +262,6 @@ def main ():
 
         screen.fill(backgroundColor)
 
-        boidLocations = []
-        
         for boid in boids:
             sleep(.0001)
 
@@ -300,8 +299,6 @@ def main ():
             else:
                 return
 
-            boidLocations.append(boid.coords())
-
             boid.historyColor.append(boid.color)
 
             if historyTrace == True: 
@@ -314,8 +311,8 @@ def main ():
             if linesBetween:
                 buildGraph(boid, screen)
 
-        for location in boidLocations:
-            pygame.draw.circle(screen, boid.color, location, 3)
+        for boid in boids:
+            pygame.draw.circle(screen, boid.color, boid.coords(), 3)
 
         pygame.display.update()
         pygame.display.flip()

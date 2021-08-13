@@ -1,24 +1,16 @@
 .team { 
     background: #000;
-    color: #fefffe;
+    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin-top: 25%;
   }
   
 .team h1{
-background-color: #191818;
-background-image: linear-gradient(
-    to right,
-    #d39b52 0%,
-    #daae67 0%,
-    #ddb56d 21%,
-    #e5c37b 52%,
-    #ecd28b 78%,
-    #eedd98 100%
-);
+background-color: #fff;
 background-size: 100%;
 -webkit-background-clip: text;
 -moz-background-clip: text;
@@ -55,10 +47,9 @@ margin: 40px 0;
 font-size: 100%;
 }
 
-.team__container img { 
+.team_video { 
 width: 100%;
 height: 100%;
 object-fit: cover;
 border-radius: 20px;
-border: 2px solid #dcb36a;
 }
