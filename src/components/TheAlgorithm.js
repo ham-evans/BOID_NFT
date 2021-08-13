@@ -7,7 +7,7 @@ import matchVelo from '../images/matchVelo.mp4';
 class TheAlgorithm extends Component { 
     render () {
         return (
-            <div className="services">
+            <div className="services" id="thealgorithm">
                 <h1 className="hideme">BOIDS ALGORITHM</h1>
                 <div className="servies__dContainer">
                     <p className="services_description">Boids Algorithm was developed by Craig Reynolds in 1986 to describe the flocking behaviour of groups of birds.  BOIDS exhibit emergent behavior- the complexity is derived from individuals making decisions based only on simple rules.  For boids, there are three simple rules in which the individuals follow.</p>

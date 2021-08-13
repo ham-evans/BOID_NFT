@@ -4,24 +4,13 @@ import math
 from randomGeneration import randGeneration
 from time import sleep, time
 
-imgNumber = 600
+imgNumber = 795
 numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
 
-changeColor=False
-initialColor=(51,255,153)
-linesBetween=False
-historyTrace = False
-numBoids=80
-speedLimit=6
-fadeColor=(False, (0,0,0))
-
-numBoids=30
-width = 400
-height = 525
+width = 600
+height = 600
 visualRange = 75
 colorRange = visualRange - (visualRange / 6)
-
-visualRange = 50
 
 boids = []
 colors = []
@@ -204,7 +193,6 @@ def colorChange(currBoid):
         currBoid.color = (avgColor1, avgColor2, avgColor3)
 
 def makeMoves (forwardSteps, slowdownSteps): 
-    
     totalSteps = slowdownSteps + forwardSteps
 
     for steps in range(totalSteps):
@@ -244,7 +232,6 @@ def makeMoves (forwardSteps, slowdownSteps):
                 boid.totalHistory.append([boid.x, boid.y])
 
 def main ():
-    theOne = None
     global backgroundColor
 
     initPositions()
@@ -324,23 +311,7 @@ def main ():
                 for i in range(0, len(boid.history) - 1):
                     pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
 
-
-        for boid in boids: 
-            if steps >= 100:
-                distance2 = math.sqrt(((boid.x - 200)**2) + ((boid.y - 360)**2)) 
-                if distance2 < 50: 
-                    if theOne == None: 
-                        theOne = boid
-                if boid == theOne:
-                    sleep(1)
-                    inRange = []
-                    pygame.draw.circle(screen, (128, 128, 128), boid.coords(), visualRange)
-                    for otherBoid in boids:
-                        if boid != otherBoid:
-                            if distance(otherBoid, boid) < visualRange:
-                                pygame.draw.line(screen, (255, 51, 51), boid.coords(), otherBoid.coords())
-
-        if linesBetween:
+            if linesBetween:
                 buildGraph(boid, screen)
 
         for location in boidLocations:

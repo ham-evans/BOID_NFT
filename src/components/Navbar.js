@@ -1,71 +1,62 @@
-import React, { useState } from 'react'; 
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react'; 
+import { HashLink } from "react-router-hash-link";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar () { 
-    const [click, setClick] = useState(false);
+class Navbar extends Component { 
+  state = {
+    isOpen: false
+  };
 
-    const handleClick = () => setClick(!click);
+  handleToggle = () => { 
+    this.setState({ isOpen: !this.state.isOpen })
+  };
 
+  render () {
     return (
-      <nav className="navbar">
+      <nav className="navbar" id="#home">
         <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo">
+          <HashLink smooth to="#home" className="nav-logo">
             BOIDS
-          </NavLink>
+          </HashLink>
 
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <ul className={this.state.isOpen ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink
-                exact
-                to="/"
-                activeClassName="active"
+              <HashLink
+                smooth 
+                to="#thealgorithm"
                 className="nav-links"
-                onClick={handleClick}
               >
                 THE ALGORITHM
-              </NavLink>
+              </HashLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                exact
-                to="/about"
-                activeClassName="active"
+              <HashLink
+                smooth
+                to="#diffboids"
                 className="nav-links"
-                onClick={handleClick}
               >
                 ABOUT BOIDS
-              </NavLink>
+              </HashLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                exact
-                to="/blog"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
+            <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
                 <i className="fa fa-twitter" aria-hidden="true"></i>
-              </NavLink>
+              </Link>
             </li>
             <li className="nav-item">
-              <NavLink
-                exact
-                to="/contact"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
+              <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
                 <i className="fab fa-discord"></i>
-              </NavLink>
+              </Link>
             </li>
           </ul>
-          <div className="nav-icon" onClick={handleClick}>
-            <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
+          <div className="nav-icon" onClick={this.handleToggle}>
+            <i className={this.state.isOpen ? "fas fa-times" : "fas fa-bars"}></i>
           </div>
         </div>
       </nav>
     );
+  }
 }
 
 export default Navbar

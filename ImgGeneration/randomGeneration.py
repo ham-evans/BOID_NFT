@@ -66,7 +66,7 @@ def randGeneration (imgNumber):
         #/25, light blue background
         backgroundColor = (135,206,250)
 
-    elif imgNumber > 41 and imgNumber < 162: 
+    elif imgNumber > 41 and imgNumber < 193: 
         #150 or so? light gray background
         feed3 = randint(1, 3)
         if feed3 == 1: 
