@@ -1,55 +1,67 @@
-.team { 
+.diff { 
     background: #000;
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin-top: 25%;
+    height: 100%;
+    margin: 25% auto;
+    width: 100%;
   }
   
-.team h1{
-background-color: #fff;
-background-size: 100%;
--webkit-background-clip: text;
--moz-background-clip: text;
--webkit-text-fill-color: transparent;
--moz-text-fill-color: transparent;
-font-size: 2.5rem;
-display: flex;
-flex-direction: column;
-align-items: center;
+.diff p { 
+  color:  #fff;
+  font-size: 1.5rem;
+  max-width: 80%;
+  margin: 3rem auto 5rem auto;
+  text-align: center;
 }
 
-.team__container {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-grid-gap: 40px;
-justify-content: center;
-flex-wrap: wrap;
-align-items: center;
-text-align: center;
-resize: horizontal;
+.diff h1{
+  background-color: #fff;
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  font-size: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.team__container .team__member-group { 
-position: relative;
-overflow: hidden;
-justify-content: center;
+.diff__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  resize: horizontal;
+  position: relative;
+  overflow: hidden;
+  padding: 0 100px;
 }
 
-.team__member-individual {
-margin: 40px 0;
-}
 
 .caption { 
-font-size: 100%;
+  font-size: 1.5rem;
 }
 
-.team_video { 
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 20px;
+.diff_video { 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 960px) {
+  .diff__container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding: 0 20px;
+  }
+
 }

@@ -10,50 +10,47 @@ import rest from '../images/rest.mp4';
 class DiffBoids extends Component { 
     render () {
         return (
-            <div className="team" id="diffboids">
-                <h1>Meet the Team</h1>
-                <div className="team__container">
-                    <div className="team__member-group">
-                        <div className="team__member-individual">
-                            <video className='team_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
-                                <source src={of1} typ='video/mp4' />
-                            </video>
-                            <figcaption className="caption">This is the caption</figcaption>
-                        </div>
-                        <div className="team__member-individual">
-                            <video className='team_video' loop muted onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()}>
-                                <source src={of5} typ='video/mp4' />
-                            </video>
-                            <figcaption className="caption">This is the caption</figcaption>
-                        </div>
+            <div className="diff" id="diffboids">
+                <h1>TYPES OF BOIDS</h1>
+                <div className="diff__dContainer">
+                    <p className="diff_description">Boids Algorithm was developed by Craig Reynolds in 1986 to describe the flocking behaviour of groups of birds.  BOIDS exhibit emergent behavior- the complexity is derived from individuals making decisions based only on simple rules.  For boids, there are three simple rules in which the individuals follow.</p>
+                </div>
+                <div className="diff__container">
+                    <div className="diff__member-individual">
+                        <video className='diff_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
+                            <source src={of1} typ='video/mp4' />
+                        </video>
+                        <figcaption className="caption">1/1 Gold Background </figcaption>
                     </div>
-                    <div className="team__member-group">
-                        <div className="team__member-individual">
-                            <video className='team_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
-                                <source src={of10} typ='video/mp4' />
-                            </video>
-                            <figcaption className="caption">This is the caption</figcaption>
-                        </div>
-                        <div className="team__member-individual">
-                            <video className='team_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
-                                <source src={of25} typ='video/mp4' />
-                            </video>
-                            <figcaption className="caption">This is the caption</figcaption>
-                        </div>
+                    <div className="diff__member-individual">
+                        <video className='diff_video' loop muted onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()}>
+                            <source src={of5} typ='video/mp4' />
+                        </video>
+                        <figcaption className="caption">/5 Red Background</figcaption>
                     </div>
-                    <div className="team__member-group">
-                        <div className="team__member-individual">
-                            <video className='team_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
-                                <source src={of150} typ='video/mp4' />
-                            </video>
-                            <figcaption className="caption">This is the caption</figcaption>
-                        </div>
-                        <div className="team__member-individual">
-                            <video className='team_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
-                                <source src={rest} typ='video/mp4' />
-                            </video>
-                            <figcaption className="caption">This is the caption</figcaption>
-                        </div>
+                    <div className="diff__member-individual">
+                        <video className='diff_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
+                            <source src={of10} typ='video/mp4' />
+                        </video>
+                        <figcaption className="caption">/10 White Background</figcaption>
+                    </div>
+                    <div className="diff__member-individual">
+                        <video className='diff_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
+                            <source src={of25} typ='video/mp4' />
+                        </video>
+                        <figcaption className="caption">/25 Blue Background</figcaption>
+                    </div>
+                    <div className="diff__member-individual">
+                        <video className='diff_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
+                            <source src={of150} typ='video/mp4' />
+                        </video>
+                        <figcaption className="caption">/150 Gray Background</figcaption>
+                    </div>
+                    <div className="diff__member-individual">
+                        <video className='diff_video' onMouseOver={event => event.target.play()} onMouseOut={event => event.target.pause()} loop muted>
+                            <source src={rest} typ='video/mp4' />
+                        </video>
+                        <figcaption className="caption">Common Background</figcaption>
                     </div>
                 </div>
             </div>
