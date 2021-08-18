@@ -1,8 +1,8 @@
 .bar__wrapper {
     background-color: #000;
     color: #fff;
-    height: 16vh;
-    margin-bottom: 50px;
+    height: 100%;
+    margin-bottom: 700px;
     position: relative;
   }
   
@@ -16,6 +16,7 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     align-items: center;
+    text-align: center;
   }
   
   .bar__container button {

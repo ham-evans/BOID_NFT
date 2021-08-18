@@ -13,5 +13,9 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
+    ropsten: { 
+      url: process.env.REACT_APP_INFURA_API_KEY,
+      accounts: [process.env.REACT_APP_PRIVATE_KEY]
+    }
   }
 };

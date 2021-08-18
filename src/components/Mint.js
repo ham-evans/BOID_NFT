@@ -3,7 +3,7 @@ import "./Mint.css";
 import { ethers } from 'ethers';
 import Boids from '../artifacts/contracts/Boids.sol/Boids.json';
 
-const boidsAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const boidsAddress = '0xeAceC5181402623d9E5AaE97d7765C9b9cEa73Ad';
 
 export default function Mint () {
     const [signedIn, setSignedIn] = useState(false);
@@ -52,7 +52,6 @@ export default function Mint () {
         const salebool = await boidsContract.saleIsActive();
         setSaleStarted(salebool);
 
-    
         const totalSupply = String(await boidsContract.totalSupply());
         setTotalSupply(totalSupply);
     
@@ -102,7 +101,7 @@ export default function Mint () {
             <div className="bar">
                 <div className="bar__container">
                     <h2>Minting is live! Mint before its too late.</h2> 
-                    <p>TOTAL BOIDS MINTED:  <p> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 1500</p></p>
+                    <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 1500</span></h3>
                     <button onClick={flipSaleState}>Flip It</button>
                     <button onClick={() => mintBoid(1)}>Mint a boid</button>
 
