@@ -22,14 +22,17 @@ export default function Mint () {
     async function signIn() {
         if (typeof window.ethereum !== 'undefined') {
             window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+            console.log("First go: ", await window.ethereum.request({ method: 'eth_accounts' }))
             await window.ethereum.request({ method: 'eth_accounts' })
             .then(async function (accounts) {
+                console.log("Second go: ", accounts)
                 let wallet = accounts[0]
                 setWalletAddress(wallet)
                 setSignedIn(true)
                 callContractData()
             })
             .catch(function (error) {
+                console.log("error is here")
                 console.error(error)
             })
         } else {
