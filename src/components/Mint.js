@@ -35,17 +35,15 @@ export default function Mint () {
         const isAllowed = await isWalletAllowed()
     
         //because of the "null" case above, this will still attempt the request in mobile wallets
-        if( isAllowed !== false && isAllowed !== null ){
+        if( isAllowed !== false){
           try{
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-            if (accounts.length > 0) {
+            .then(async function (accounts) {
                 let wallet = accounts[0]
                 setWalletAddress(wallet)
                 setSignedIn(true)
                 callContractData()
-            } else {
-                setSignedIn(false)
-            }
+            })
           }
           catch( err ){
             alert({ 'getWalletAccounts': JSON.stringify( err ) });
@@ -60,8 +58,8 @@ export default function Mint () {
     async function signIn() {
         if (typeof window.ethereum !== 'undefined') {
             window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
-            console.log("Permissions: ", await window.ethereum.request({ method: 'wallet_getPermissions' }))
-            await window.ethereum.request({ method: 'eth_requestAccounts' })
+            //console.log("Permissions: ", await window.ethereum.request({ method: 'wallet_getPermissions' }))
+            await window.ethereum.request({ method: 'eth_accounts' })
             .then(async function (accounts) {
                 console.log("Second go: ", accounts)
                 if (accounts.length > 0) {
