@@ -1,6 +1,9 @@
 import React, { Component } from 'react'; 
 import { HashLink } from "react-router-hash-link";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faTwitter } from '@fortawesome/free-brands-svg-icons'
+
 import "./Navbar.css";
 
 class Navbar extends Component { 
@@ -40,13 +43,13 @@ class Navbar extends Component {
               </HashLink>
             </li>
             <li className="nav-item">
-            <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
-                <i className="fa fa-twitter" aria-hidden="true"></i>
+              <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
+                <FontAwesomeIcon icon={faTwitter} />
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
-                <i className="fab fa-discord"></i>
+                <FontAwesomeIcon icon={faDiscord} />
               </Link>
             </li>
           </ul>

@@ -79,12 +79,6 @@
     color: #fff;
   }
   
-  .nav-item .active {
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 4px;
-  }
-  
   .nav-icon {
     display: none;
   }
