@@ -60,8 +60,7 @@ export default function Mint () {
     async function signIn() {
         if (typeof window.ethereum !== 'undefined') {
             window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
-            console.log("First go: ", await window.ethereum.request({ method: 'wallet_getPermissions' }))
-            await window.ethereum.request({ method: 'eth_requestAccounts' })
+            await window.ethereum.request({ method: 'eth_accounts' })
             .then(async function (accounts) {
                 console.log("Second go: ", accounts)
                 if (accounts.length > 0) {
@@ -124,7 +123,6 @@ export default function Mint () {
         const balance = await window.ethersProvider.getBalance(boidsAddress);
         console.log("The contract now has this much eth: ", balance.toString())
     }
-
 
 
     async function mintBoid () { 
