@@ -98,6 +98,10 @@ export default function Mint () {
             console.log("New sale state: ", await boidsContract.saleIsActive())
         }
     }
+
+    async function test () { 
+        console.log("THIS IS THE TEST: ", window.ethersProvider, totalSupply, boidPrice, saleStarted)
+    }
     
     return (
         <div className="bar__wrapper" id="mint">
@@ -107,7 +111,7 @@ export default function Mint () {
                     <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 1500</span></h3>
                     <button onClick={flipSaleState}>Flip It</button>
                     <button onClick={() => mintBoid(1)}>Mint a boid</button>
-
+                    <button onClick={test}>TEST IT</button>
                     {!signedIn ? <button onClick={signIn}>Connect Wallet with Metamask</button>
                         : <button onClick={signOut}>Wallet Connected: {walletAddress} Click to sign out</button>
                     }
