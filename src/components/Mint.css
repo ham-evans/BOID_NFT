@@ -21,7 +21,6 @@
   
   .bar__container button {
     padding: 8px 32px;
-    border: none;
     border-radius: 10px;
     background-color: #000;
     color: #fff;
@@ -30,6 +29,17 @@
     margin: 6px 0;
     width: 65%;
     border: 2px solid #fff;
+  }
+
+  .bar__container input { 
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    text-align: center;
+    width: 65%;
+    padding: 8px 32px;
+    border-radius: 10px;
+    margin: 6px 0;
   }
   
   .bar__container a{
@@ -58,6 +68,11 @@
     }
   
     .bar__container button {
+      width: 60%;
+      padding: 8px 26px;
+    }
+
+    .bar__container input {
       width: 60%;
       padding: 8px 26px;
     }

@@ -13,26 +13,72 @@ export default function Mint () {
     const [saleStarted, setSaleStarted] = useState(false);
     const [totalSupply, setTotalSupply] = useState(0);
     const [boidPrice, setBoidPrice] = useState(0)
+    const [howManyBoids, setHowManyBoids] = useState(0)
 
     useEffect( () => { 
         signIn()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    async function signIn() {
-        if (typeof window.ethereum !== 'undefined') {
-            window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
-            console.log("First go: ", await window.ethereum.request({ method: 'eth_accounts' }))
-            await window.ethereum.request({ method: 'eth_accounts' })
-            .then(async function (accounts) {
-                console.log("Second go: ", accounts)
+    async function isWalletAllowed (){
+        try{
+          const permissions = await window.ethereum.request({ method: 'wallet_getPermissions' })
+          return permissions.some( p => p.parentCapability === 'eth_accounts' )
+        }
+        catch( err ){
+          alert({ 'isWalletAllowed': JSON.stringify( err ) });
+          return null;
+        }
+    }
+
+    async function getWalletAccounts () {
+        const isAllowed = await isWalletAllowed()
+    
+        //because of the "null" case above, this will still attempt the request in mobile wallets
+        if( isAllowed !== false && isAllowed !== null ){
+          try{
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            if (accounts.length > 0) {
                 let wallet = accounts[0]
                 setWalletAddress(wallet)
                 setSignedIn(true)
                 callContractData()
+            } else {
+                setSignedIn(false)
+            }
+          }
+          catch( err ){
+            alert({ 'getWalletAccounts': JSON.stringify( err ) });
+            return []
+          }
+        }
+        else{
+          return []
+        }
+    }
+
+    async function signIn() {
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+            console.log("First go: ", await window.ethereum.request({ method: 'wallet_getPermissions' }))
+            await window.ethereum.request({ method: 'eth_requestAccounts' })
+            .then(async function (accounts) {
+                console.log("Second go: ", accounts)
+                if (accounts.length > 0) {
+                    let wallet = accounts[0]
+                    setWalletAddress(wallet)
+                    setSignedIn(true)
+                    callContractData()
+                } else {
+                    setSignedIn(false)
+                }
             })
             .catch(function (error) {
-                console.log("error is here")
+                if (error.code === 4001) {
+                    // User rejected request
+                }
+              
+                console.log("Error is here")
                 console.error(error)
             })
         } else {
@@ -60,34 +106,47 @@ export default function Mint () {
     
         const boidPrice = await boidsContract.boidPrice()
         setBoidPrice(boidPrice)
-        
     }
 
-    async function mintBoid (howManyBoids) { 
+    async function mintBoidFunctionality () { 
+        const price = String(boidPrice  * howManyBoids)
+        const gasAmount = await window.ethersProvider.getGasPrice()
+
+        let overrides = {
+            from: walletAddress, 
+            value: price,
+            gasPrice: gasAmount, 
+        }
+
+        await boidsWithSigner.mintBoid(howManyBoids, overrides)
+        console.log("Successfully minted this many boids: ", howManyBoids)
+
+        const balance = await window.ethersProvider.getBalance(boidsAddress);
+        console.log("The contract now has this much eth: ", balance.toString())
+    }
+
+
+
+    async function mintBoid () { 
         if (typeof window.ethereum != "undefined") { 
             console.log("Sale status: ", saleStarted)
-            if (await boidsContract.saleIsActive()) { //Control mint powers here! can't mint until active!
-                if (boidsWithSigner && signedIn) {
-                    const price = String(boidPrice  * 1)
-                    const gasAmount = await window.ethersProvider.getGasPrice()
+            if (boidsWithSigner) {
+                if (saleStarted) { //Control mint powers here! can't mint until active!
+                    if (signedIn) {
+                        await mintBoidFunctionality ()
+                    } else {
+                        await getWalletAccounts ()
 
-                    let overrides = {
-                        from: walletAddress, 
-                        value: price,
-                        gasPrice: gasAmount, 
+                        if (signedIn) {
+                            await mintBoidFunctionality ()
+
+                        } else {
+                            alert("Wallet not connected! Connect to mint boids.");
+                        }
                     }
-
-                    await boidsWithSigner.mintBoid(howManyBoids, overrides)
-                    console.log("Successfully minted this many boids: ", howManyBoids)
-
-                    const balance = await window.ethersProvider.getBalance(boidsAddress);
-                    console.log("The contract now has this much eth: ", balance.toString())
-                    
                 } else {
-                    alert("Wallet not connected.");
+                    alert("Sale is not active yet.  Try again later!");
                 }
-            } else {
-                alert("Sale is not active yet.  Try again later!");
             }
         }
     }
@@ -109,8 +168,18 @@ export default function Mint () {
                 <div className="bar__container">
                     <h2>Minting is live! Mint before its too late.</h2> 
                     <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 1500</span></h3>
+                    
+                    <h3>Input number of boids to mint:</h3>
+                    <input 
+                        type="number" 
+                        min="1"
+                        max="20"
+                        value={howManyBoids}
+                        onChange={ e => setHowManyBoids(e.target.value) }
+                        name="" 
+                    />
+                    <button onClick={() => mintBoid()}>Mint {howManyBoids} boid(s)</button>
                     <button onClick={flipSaleState}>Flip It</button>
-                    <button onClick={() => mintBoid(1)}>Mint a boid</button>
                     <button onClick={test}>TEST IT</button>
                     {!signedIn ? <button onClick={signIn}>Connect Wallet with Metamask</button>
                         : <button onClick={signOut}>Wallet Connected: {walletAddress} Click to sign out</button>
