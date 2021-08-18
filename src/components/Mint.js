@@ -177,7 +177,7 @@ export default function Mint () {
                     <button onClick={() => mintBoid()}>Mint {howManyBoids} boid(s)</button>
                     <button onClick={flipSaleState}>Flip It</button>
                     <button onClick={test}>TEST IT</button>
-                    {!signedIn ? <button onClick={signIn}>Connect Wallet with Metamask</button>
+                    {!signedIn ? <button onClick={getWalletAccounts}>Connect Wallet with Metamask</button>
                         : <button onClick={signOut}>Wallet Connected: {walletAddress} Click to sign out</button>
                     }
                 </div>
