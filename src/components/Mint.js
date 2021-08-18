@@ -108,42 +108,37 @@ export default function Mint () {
     }
 
     async function mintBoidFunctionality () { 
-        const price = String(boidPrice  * howManyBoids)
-        const gasAmount = await window.ethersProvider.getGasPrice()
-
-        let overrides = {
-            from: walletAddress, 
-            value: price,
-            gasPrice: gasAmount, 
+        if (saleStarted && boidsWithSigner) { //Control mint powers here! can't mint until active!
+            const price = String(boidPrice  * howManyBoids)
+            const gasAmount = await window.ethersProvider.getGasPrice()
+    
+            let overrides = {
+                from: walletAddress, 
+                value: price,
+                gasPrice: gasAmount, 
+            }
+    
+            await boidsWithSigner.mintBoid(howManyBoids, overrides)
+            console.log("Successfully minted this many boids: ", howManyBoids)
+        } else {
+            alert("Sale is not active yet.  Try again later!");
         }
-
-        await boidsWithSigner.mintBoid(howManyBoids, overrides)
-        console.log("Successfully minted this many boids: ", howManyBoids)
-
-        const balance = await window.ethersProvider.getBalance(boidsAddress);
-        console.log("The contract now has this much eth: ", balance.toString())
     }
 
 
     async function mintBoid () { 
         if (typeof window.ethereum != "undefined") { 
             console.log("Sale status: ", saleStarted)
-            if (boidsWithSigner) {
-                if (saleStarted) { //Control mint powers here! can't mint until active!
-                    if (signedIn) {
-                        await mintBoidFunctionality ()
-                    } else {
-                        await getWalletAccounts ()
+            if (signedIn) {
+                await mintBoidFunctionality ()
+            } else {
+                await getWalletAccounts ()
 
-                        if (signedIn) {
-                            await mintBoidFunctionality ()
+                if (signedIn) {
+                    await mintBoidFunctionality ()
 
-                        } else {
-                            alert("Wallet not connected! Connect to mint boids.");
-                        }
-                    }
                 } else {
-                    alert("Sale is not active yet.  Try again later!");
+                    alert("Wallet not connected! Connect to mint boids.");
                 }
             }
         }
@@ -157,7 +152,10 @@ export default function Mint () {
     }
 
     async function test () { 
+        const balance = await window.ethersProvider.getBalance(boidsAddress);
         console.log("THIS IS THE TEST: ", window.ethersProvider, totalSupply, boidPrice, saleStarted)
+        console.log("The contract now has this much eth: ", balance.toString())
+
     }
     
     return (
