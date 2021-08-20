@@ -3,11 +3,12 @@ from random import randint, random
 import math
 from randomGeneration import randGeneration
 from time import sleep, time
+import os
+from moviepy.editor import * 
 
 imgNumber = 1000
 numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
 
-initialColor="random"
 width = 600
 height = 600
 visualRange = 75
@@ -17,6 +18,11 @@ boids = []
 colors = []
 edges = []
 vertices = []
+
+fadeDelay = 1
+fadeInOutSteps = 100
+forwardSteps = 1100
+totalSteps = forwardSteps + (2 * fadeInOutSteps) + fadeDelay
 
 class Boid:
     def __init__(self, number, initialColor):
@@ -37,6 +43,7 @@ class Boid:
             self.color = initialColor
         self.randomFade = (randint(0,255), randint(0,255), randint(0,255))
         self.selfColor = self.color
+        self.selfColor2 = self.color
 
     def coords(self):
         return (self.x, self.y)
@@ -135,19 +142,30 @@ def limitSpeed (currBoid):
         (currBoid.dx) = (currBoid.dx / speed) * speedLimit
         (currBoid.dy) = (currBoid.dy / speed) * speedLimit
 
-def buildGraph (currBoid, screen):
+def buildGraph (currBoid, screen, linehistory, dontAdd):
     for boid in boids:
         if boid != currBoid:
             if distance(currBoid, boid) < visualRange:
-                color = (((currBoid.color[0] + boid.color[0]) / 2), ((currBoid.color[1] + boid.color[1]) / 2), ((currBoid.color[2] + boid.color[2]) / 2))
-                pygame.draw.line(screen, color, (currBoid.x, currBoid.y), (boid.x, boid.y))
+                if [currBoid.number, boid.number] not in dontAdd: 
+                    color = (((currBoid.color[0] + boid.color[0]) / 2), ((currBoid.color[1] + boid.color[1]) / 2), ((currBoid.color[2] + boid.color[2]) / 2))
+                    linehistory.append([color, currBoid, boid])
+                    dontAdd.append([currBoid.number, boid.number])
+                    dontAdd.append([boid.number, currBoid.number])
+                   
+    return linehistory, dontAdd
 
 def colorFade (currBoid, currBoidColor, new, steps, totalSteps): 
     if new == "random": 
         new = currBoid.randomFade
-    updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps) / 60)
-    updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps) / 60)
-    updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps) / 60)
+
+    if totalSteps == forwardSteps:
+        updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps) / 60)
+        updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps) / 60)
+        updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps) / 60)
+    else: 
+        updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps))
+        updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps))
+        updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps))
 
     if currBoid == None: 
         return (updated0, updated1, updated2)
@@ -155,7 +173,7 @@ def colorFade (currBoid, currBoidColor, new, steps, totalSteps):
     else: 
         currBoid.color = (updated0, updated1, updated2)
 
-def colorChange(currBoid):
+def colorChange(currBoid, steps):
     adjustNum = 15
     avgColor1 = 0
     avgColor2 = 0
@@ -190,10 +208,12 @@ def colorChange(currBoid):
         elif avgColor3 < currBoid.selfColor[0] and avgColor3 < 255 - adjustNum:
             avgColor3 = avgColor3 + adjustNum
 
+        if steps <= fadeInOutSteps + fadeDelay: 
+            currBoid.selfColor2 = (avgColor1, avgColor2, avgColor3)
+        else: 
+            currBoid.color = (avgColor1, avgColor2, avgColor3)
 
-        currBoid.color = (avgColor1, avgColor2, avgColor3)
-
-def makeMoves (forwardSteps, slowdownSteps): 
+def makeMovesReverse (forwardSteps, slowdownSteps): 
     totalSteps = slowdownSteps + forwardSteps
 
     for steps in range(totalSteps):
@@ -218,7 +238,7 @@ def makeMoves (forwardSteps, slowdownSteps):
                 keepWithinBounds(boid)
 
                 if boid.dx <= 0: 
-                    boid.dx= boid.dx + (abs(boid.slowDx) / 60)
+                    boid.dx= boid.dx + (abs(boid.slowDx) / 20)
                 else: 
                     boid.dx = boid.dx - (abs(boid.slowDx) / 60)
                 
@@ -232,7 +252,7 @@ def makeMoves (forwardSteps, slowdownSteps):
 
                 boid.totalHistory.append([boid.x, boid.y])
 
-def main ():
+def mainReverse ():
     global backgroundColor
 
     initPositions()
@@ -247,8 +267,6 @@ def main ():
 
     steps = 0
     
-    counter2 = 0 # will be deleted
-
     running = True
     while running:
         steps += 1
@@ -289,13 +307,6 @@ def main ():
                 boid.slowDx = boid.dx
                 boid.slowDy = boid.dy
             
-            elif counter2 < (len(boid.totalHistory)) - 1 : # WILL BE DELETED
-                if boid == boids[0]: 
-                    counter2 += 1
-                
-                boid.x = boid.totalHistory[counter2][0]
-                boid.y = boid.totalHistory[counter2][1]
-
             else:
                 return
 
@@ -319,4 +330,111 @@ def main ():
 
     pygame.quit()
 
-main ()
+def makeMovesFade (totalSteps): 
+    for step in range(totalSteps):
+        for boid in boids:
+            flyToCenter(boid)
+            avoidOthers(boid)
+            matchVelocity(boid)
+            limitSpeed(boid)
+            keepWithinBounds(boid)
+            
+            boid.x += boid.dx
+            boid.y += boid.dy
+            boid.totalHistory.append([boid.x, boid.y])
+            boid.slowDx = boid.dx
+            boid.slowDy = boid.dy
+
+def mainFade ():
+    initPositions()
+
+    makeMovesFade (totalSteps)
+
+    pygame.init()
+    screen = pygame.display.set_mode([width, height])
+
+    steps = 0
+    pathArray=[]
+    
+    running = True
+    while running:
+        steps += 1
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill(backgroundColor)
+        
+        linehistory = []
+        dontAddLine = []
+        for boid in boids:
+            #Start of printing 
+            if steps <= fadeDelay: 
+               boid.color = backgroundColor
+               if changeColor:
+                    colorChange(boid, steps)
+               
+
+            if steps <= fadeInOutSteps + fadeDelay: 
+                if changeColor:
+                    colorChange(boid, steps)
+                colorFade(boid, backgroundColor, boid.selfColor2, steps - fadeDelay, fadeInOutSteps)
+            
+            elif steps < forwardSteps + fadeInOutSteps + fadeDelay: 
+                if fadeColor[0]: 
+                    colorFade(boid, boid.color, fadeColor[1], steps - fadeDelay - fadeInOutSteps, forwardSteps)
+
+                if changeColor:
+                    colorChange(boid, steps)
+            
+            elif steps < forwardSteps + (2 * fadeInOutSteps) + fadeDelay:
+                colorFade(boid, boid.color, backgroundColor, steps - (forwardSteps + fadeInOutSteps + fadeDelay), fadeInOutSteps)
+
+            else:
+                running = False
+
+            boid.x = boid.totalHistory[steps - 1][0]
+            boid.y = boid.totalHistory[steps - 1][1]
+
+            if historyTrace == True: 
+                boid.historyColor.append(boid.color)
+                boid.history.append([boid.x, boid.y])
+                boid.history = boid.history[-50:]
+
+                for i in range(0, len(boid.history) - 1):
+                    pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
+
+            if linesBetween:
+                linehistory, dontAddLine = buildGraph(boid, screen, linehistory, dontAddLine)
+
+        for line in linehistory:
+            #pygame.draw.line(screen, color, (currBoid.x, currBoid.y), (boid.x, boid.y))
+            pygame.draw.line(screen, line[0], line[1].coords(), line[2].coords())
+
+            
+                
+        for boid in boids:
+            pygame.draw.circle(screen, boid.color, boid.coords(), 3)
+        
+        pygame.display.update()
+        pygame.display.flip()
+        
+        path = "/Users/hamevans/Desktop/boidImages/" + str(imgNumber) + "/"
+        os.mkdir(path)
+        path = os.path.join(path, str(steps) + ".png")
+        pathArray.append(path)
+        pygame.image.save(screen, path)
+
+    pygame.quit()
+    return(pathArray)
+
+def makeMovie (): 
+    pathArray = mainFade ()
+    clip = ImageSequenceClip(pathArray, fps = 48) 
+    os.mkdir("/Users/hamevans/Desktop/boidVideos/")
+    path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
+    clip.write_videofile(path, fps = 48)
+
+#makeMovie()
+mainFade ()
