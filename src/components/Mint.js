@@ -59,7 +59,7 @@ export default function Mint () {
         if (typeof window.ethereum !== 'undefined') {
             window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
             //console.log("Permissions: ", await window.ethereum.request({ method: 'wallet_getPermissions' }))
-            await window.ethereum.request({ method: 'eth_accounts' })
+            await window.ethereum.request({ method: 'eth_requestAccounts' })
             .then(async function (accounts) {
                 console.log("Second go: ", accounts)
                 if (accounts.length > 0) {
@@ -131,14 +131,14 @@ export default function Mint () {
             if (signedIn) {
                 await mintBoidFunctionality ()
             } else {
-                await getWalletAccounts ()
+                //await getWalletAccounts ()
 
-                if (signedIn) {
-                    await mintBoidFunctionality ()
+                //if (signedIn) {
+                    //await mintBoidFunctionality ()
 
-                } else {
-                    alert("Wallet not connected! Connect to mint boids.");
-                }
+               // } else {
+                alert("Wallet not connected! Connect to mint boids.");
+               // }
             }
         }
     }

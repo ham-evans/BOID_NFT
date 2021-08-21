@@ -1,8 +1,8 @@
 from random import randint
+from createMetadata import writeMetadata
 
 def randGeneration (imgNumber): 
     colors = [(255,255,255), (238,0,0), (255,128,0), (255,255,0), (0,0,255), (154,255,154), (124,252,0), (0,255,255), (255,174,185), "random"]
-
     feed = randint(1, 11)
     speedLimit = randint(2, 6)
     linesBetween = False
@@ -81,7 +81,30 @@ def randGeneration (imgNumber):
         
     else: 
         backgroundColor = (0,0,0)
-
-    print(numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace)
     
-    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace
+
+    colorsToWords = {(192,192,192): "Gray", (250,128,114): "Red", (0,0,0): "Black", (255,220,116): "Gold", (255,255,255): "White", (238,0,0): "Red", (255,128,0): "Orange", (255,255,0): "Yellow", (0,0,255): "Blue", (154,255,154): "Green", (124,252,0): "Lime", (135,206,250): "Light Blue", (0,255,255): "Aqua", (255,174,185): "Pink", "random": "Random"}
+
+    if fadeColor[0] == False: 
+        if fadeColor[1] == (0,0,0): 
+            colorChange = "None"
+    else: 
+        colorChange = colorsToWords[fadeColor[1]]
+
+    
+    traits = {
+         'Number of Boids': numBoids, 
+         'Speed Limit': speedLimit, 
+         'Initial Color': colorsToWords[initialColor], 
+         'Background Color': colorsToWords[backgroundColor], 
+         'Connectivity': linesBetween, 
+         'Color Change': colorChange, 
+         'Trail': historyTrace
+         }
+    
+
+    writeMetadata(imgNumber, traits)
+
+    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, traits
+
+randGeneration(1500)
