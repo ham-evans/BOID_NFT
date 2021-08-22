@@ -12,8 +12,30 @@ class DiffBoids extends Component {
         return (
             <div className="diff" id="diffboids">
                 <h1>TYPES OF BOIDS</h1>
+                <p>Each boid is unique, random, and generated algorithmically.  The list of boid features and a variety of examples are shown below.  Certain rare features will also be announced at mint!</p>
                 <div className="diff__dContainer">
-                    <p className="diff_description">Boids Algorithm was developed by Craig Reynolds in 1986 to describe the flocking behaviour of groups of birds.  BOIDS exhibit emergent behavior- the complexity is derived from individuals making decisions based only on simple rules.  For boids, there are three simple rules in which the individuals follow.</p>
+                    <div>
+                        <ul>
+                            <li>Initial Boid Color</li>
+                            <li>Background Color</li>
+                            
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Boid Connectivity</li>
+                            <li>Boid Fade Color</li>
+                            
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Number of Individual Boids</li>
+                            <li>Trail of Previous Locations</li>
+                        </ul>
+                    </div>
+                    
+                    
                 </div>
                 <div className="diff__container">
                     <div className="diff__member-individual">

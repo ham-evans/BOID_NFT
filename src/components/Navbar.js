@@ -3,6 +3,7 @@ import { HashLink } from "react-router-hash-link";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faTimes, faBars } from '@fortawesome/free-solid-svg-icons'
 
 import "./Navbar.css";
 
@@ -54,7 +55,9 @@ class Navbar extends Component {
             </li>
           </ul>
           <div className="nav-icon" onClick={this.handleToggle}>
-            <i className={this.state.isOpen ? "fas fa-times" : "fas fa-bars"}></i>
+            {this.state.isOpen ? <FontAwesomeIcon icon={faTimes} />
+              : <FontAwesomeIcon icon={faBars} />
+            }
           </div>
         </div>
       </nav>

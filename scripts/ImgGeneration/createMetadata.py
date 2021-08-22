@@ -15,6 +15,10 @@ def writeMetadata (tokenId, traits):
 
     print(collectibleMetadata)
 
+def uploadToIFPS (filepath): 
+    with Path(filepath).open("rb") as fp:
+        imageBinary = fp.read()
+        ifpsUrl = "https://localhost:5001"
 
 
         

@@ -6,11 +6,12 @@ from time import sleep, time
 import os
 from moviepy.editor import * 
 
-imgNumber = 1000
-numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
 
-width = 600
-height = 600
+#width = 600
+#height = 600
+
+width = 1920
+height = 1080
 visualRange = 75
 colorRange = visualRange - (visualRange / 6)
 
@@ -345,7 +346,7 @@ def makeMovesFade (totalSteps):
             boid.slowDx = boid.dx
             boid.slowDy = boid.dy
 
-def mainFade ():
+def mainFade (saveImages):
     initPositions()
 
     makeMovesFade (totalSteps)
@@ -372,14 +373,16 @@ def mainFade ():
             #Start of printing 
             if steps <= fadeDelay: 
                boid.color = backgroundColor
-               if changeColor:
-                    colorChange(boid, steps)
+               #if changeColor:
+                    #colorChange(boid, steps)
                
 
             if steps <= fadeInOutSteps + fadeDelay: 
                 if changeColor:
                     colorChange(boid, steps)
                     colorFade(boid, backgroundColor, boid.selfColor2, steps - fadeDelay, fadeInOutSteps)
+                    if boid == boids[0]:
+                        print(boid.color, boid.selfColor2)
                 else: 
                     colorFade(boid, backgroundColor, boid.selfColor, steps - fadeDelay, fadeInOutSteps)
 
@@ -423,11 +426,13 @@ def mainFade ():
             pygame.display.update()
             pygame.display.flip()
 
-            path = "/Users/hamevans/Desktop/boidImages/" + str(imgNumber) + "/"
-            os.mkdir(path)
-            path = os.path.join(path, str(steps) + ".png")
-            pathArray.append(path)
-            pygame.image.save(screen, path)
+            if saveImages == True: 
+                path = "/Users/hamevans/Desktop/boidImages/" + str(imgNumber) + "/"
+                if os.path.exists(path) == False: 
+                    os.mkdir(path)
+                path = os.path.join(path, str(steps) + ".png")
+                pathArray.append(path)
+                pygame.image.save(screen, path)
 
     pygame.quit()
     return(pathArray)
@@ -435,16 +440,25 @@ def mainFade ():
 def makeMovie ():
     global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits
 
-    for i in range(1, 200):
+    for i in range(1):
         boids = []
 
-        imgNumber = i
+        imgNumber = 1000
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
 
-        pathArray = mainFade ()
+        numBoids=150
+        speedLimit=4
+        initialColor="random"
+        linesBetween=True
+        changeColor=True
+        fadeColor=(False, (0,0,0))
+        historyTrace=False
+
+        pathArray = mainFade (True)
         clip = ImageSequenceClip(pathArray, fps = 48)
-        path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
+        #path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
+        path = os.path.join("/Users/hamevans/Desktop/boidVideos/", "mainBackgroundVideo.mp4")
         clip.write_videofile(path, fps = 48)
 
-#makeMovie()
-mainFade ()
+makeMovie()
+#mainFade (False)

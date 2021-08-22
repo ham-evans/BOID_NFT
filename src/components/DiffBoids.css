@@ -13,8 +13,8 @@
 .diff p { 
   color:  #fff;
   font-size: 1.5rem;
-  max-width: 80%;
-  margin: 3rem auto 5rem auto;
+  max-width: 70%;
+  margin: 3rem auto 3rem auto;
   text-align: center;
 }
 
@@ -31,6 +31,18 @@
   align-items: center;
 }
 
+.diff__dContainer { 
+  display: flex;
+  flex-direction: row;
+}
+
+.diff__dContainer ul{ 
+  font-size: 1.2rem;
+  margin-right: 40px;
+  margin-left: 40px;
+  margin-bottom: 4rem;
+}
+
 .diff__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -42,9 +54,8 @@
   resize: horizontal;
   position: relative;
   overflow: hidden;
-  padding: 0 100px;
+  padding: 0 200px;
 }
-
 
 .caption { 
   font-size: 1.5rem;
@@ -60,8 +71,24 @@
 @media screen and (max-width: 960px) {
   .diff__container {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    padding: 0 20px;
+    grid-gap: 20px;
+    padding: 0 40px;
+  }
+
+  .diff__dContainer { 
+    padding: 0 40px;
+    flex-direction: column;
+    margin-bottom: 4rem;
+  }
+
+  .diff__dContainer ul{ 
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .diff__dContainer li { 
+    margin-bottom: 10px;
   }
 
 }

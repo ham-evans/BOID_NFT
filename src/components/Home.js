@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import bgVideo from '../images/BoidBackground.mp4';
+import bgVideo from '../images/mainBackgroundVideo.mp4';
 import './Home.css'
 
 class Home extends Component { 

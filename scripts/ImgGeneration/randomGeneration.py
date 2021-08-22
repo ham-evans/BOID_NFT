@@ -105,6 +105,4 @@ def randGeneration (imgNumber):
 
     writeMetadata(imgNumber, traits)
 
-    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, traits
-
-randGeneration(1500)
+    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace
