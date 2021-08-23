@@ -435,19 +435,15 @@ def mainFade (saveImages):
 
 def makeMovie ():
     global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits
-    saveIt = False
+    saveIt = True
     for i in range(1):
         boids = []
 
-        imgNumber = 400
+        imgNumber = i
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
-        numBoids = 80
-        initialColor = (255,255,255)
-        linesBetween = True
-        changeColor= False
-        historyTrace = False
-        fadeColor = (False, (0,0,0))
+
         pathArray = mainFade (saveIt)
+
         if saveIt == True:
             clip = ImageSequenceClip(pathArray, fps = 48)
             path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
