@@ -37,7 +37,7 @@ export default function Mint () {
         //because of the "null" case above, this will still attempt the request in mobile wallets
         if( isAllowed !== false){
           try{
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            await window.ethereum.request({ method: 'eth_requestAccounts' })
             .then(async function (accounts) {
                 let wallet = accounts[0]
                 setWalletAddress(wallet)
