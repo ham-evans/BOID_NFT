@@ -9,7 +9,6 @@
     text-align: center;
     min-height: 100vh;
     height: 100%;
-    margin-bottom: 200px;
 }
 
 .about h1 {
@@ -28,4 +27,14 @@
     max-width: 80%;
     margin: 3rem auto 5rem auto;
     text-align: center;
+}
+
+@media screen and (max-width: 960px) {
+    .about h1 {
+        font-size: 3rem;
+    }
+
+    .about p { 
+        font-size: 1.2rem;
+    }
 }

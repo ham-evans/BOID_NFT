@@ -1,3 +1,4 @@
+from typing import ForwardRef
 import pygame
 from random import randint, random
 import math
@@ -7,11 +8,9 @@ import os
 from moviepy.editor import * 
 
 
-#width = 600
-#height = 600
+width = 600
+height = 600
 
-width = 1920
-height = 1080
 visualRange = 75
 colorRange = visualRange - (visualRange / 6)
 
@@ -21,8 +20,10 @@ edges = []
 vertices = []
 
 fadeDelay = 1
-fadeInOutSteps = 100
-forwardSteps = 1100
+fadeInOutSteps = 96
+#forwardSteps = 1100
+forwardSteps = 768
+
 totalSteps = forwardSteps + (2 * fadeInOutSteps) + fadeDelay
 
 class Boid:
@@ -160,9 +161,9 @@ def colorFade (currBoid, currBoidColor, new, steps, totalSteps):
         new = currBoid.randomFade
 
     if totalSteps == forwardSteps:
-        updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps) / 60)
-        updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps) / 60)
-        updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps) / 60)
+        updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps) / 30)
+        updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps) / 30)
+        updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps) / 30)
     else: 
         updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps))
         updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps))
@@ -356,7 +357,7 @@ def mainFade (saveImages):
 
     steps = 0
     pathArray=[]
-    
+
     running = True
     while running:
         steps += 1
@@ -372,17 +373,16 @@ def mainFade (saveImages):
         for boid in boids:
             #Start of printing 
             if steps <= fadeDelay: 
-               boid.color = backgroundColor
-               #if changeColor:
-                    #colorChange(boid, steps)
-               
-
+                boid.color = backgroundColor
+                if changeColor:
+                    colorChange(boid, steps)
+                
+                
             if steps <= fadeInOutSteps + fadeDelay: 
                 if changeColor:
                     colorChange(boid, steps)
                     colorFade(boid, backgroundColor, boid.selfColor2, steps - fadeDelay, fadeInOutSteps)
-                    if boid == boids[0]:
-                        print(boid.color, boid.selfColor2)
+                    
                 else: 
                     colorFade(boid, backgroundColor, boid.selfColor, steps - fadeDelay, fadeInOutSteps)
 
@@ -406,19 +406,15 @@ def mainFade (saveImages):
                 boid.historyColor.append(boid.color)
                 boid.history.append([boid.x, boid.y])
                 boid.history = boid.history[-50:]
-
-                for i in range(0, len(boid.history) - 1) and steps != 1:
+                for i in range(0, len(boid.history) - 1):
                     pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
 
             if linesBetween:
                 linehistory, dontAddLine = buildGraph(boid, screen, linehistory, dontAddLine)
 
         for line in linehistory:
-            #pygame.draw.line(screen, color, (currBoid.x, currBoid.y), (boid.x, boid.y))
             pygame.draw.line(screen, line[0], line[1].coords(), line[2].coords())
-
-            
-                
+        
         for boid in boids:
             pygame.draw.circle(screen, boid.color, boid.coords(), 3)
         
@@ -439,26 +435,23 @@ def mainFade (saveImages):
 
 def makeMovie ():
     global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits
-
+    saveIt = False
     for i in range(1):
         boids = []
 
-        imgNumber = 1000
+        imgNumber = 400
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
-
-        numBoids=150
-        speedLimit=4
-        initialColor="random"
-        linesBetween=True
-        changeColor=True
-        fadeColor=(False, (0,0,0))
-        historyTrace=False
-
-        pathArray = mainFade (True)
-        clip = ImageSequenceClip(pathArray, fps = 48)
-        #path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
-        path = os.path.join("/Users/hamevans/Desktop/boidVideos/", "mainBackgroundVideo.mp4")
-        clip.write_videofile(path, fps = 48)
+        numBoids = 80
+        initialColor = (255,255,255)
+        linesBetween = True
+        changeColor= False
+        historyTrace = False
+        fadeColor = (False, (0,0,0))
+        pathArray = mainFade (saveIt)
+        if saveIt == True:
+            clip = ImageSequenceClip(pathArray, fps = 48)
+            path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
+            clip.write_videofile(path, fps = 48)
 
 makeMovie()
 #mainFade (False)

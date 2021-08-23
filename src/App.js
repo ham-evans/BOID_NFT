@@ -5,6 +5,7 @@ import TheAlgorithm from './components/TheAlgorithm';
 import DiffBoids from './components/DiffBoids';
 import Mint from './components/Mint'
 import About from './components/About'
+import Footer from './components/Footer'
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import './App.css';
 ////import { ethers } from 'ethers';
@@ -22,9 +23,10 @@ class App extends Component {
           <Navbar />
           <Home/>
           <About />
-          <Mint />
           <TheAlgorithm />
           <DiffBoids />
+          <Footer />
+
         </Router> 
       </>
     );

@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     top: 0;
     z-index: 20;
   }
@@ -84,6 +84,12 @@
   }
   
   @media screen and (max-width: 960px) {
+    .nav-logo { 
+      font-size: 2.3rem;
+      margin-left: 25px;
+      margin-bottom: 15px;
+    }
+
     .nav-menu {
       display: flex;
       flex-direction: column;
@@ -93,12 +99,12 @@
       opacity: 1;
       transition: all 0.5s ease;
       margin-right: 0;
-
     }
   
     .nav-menu.active {
       background: #000;
-      top: 80px;
+      padding-top: 80px;
+      top: 0px;
       left: 0px;
       right: 0px;
       opacity: 1;
@@ -109,8 +115,9 @@
       color: #fff;
       border: none;
     }
+
     .nav-links {
-      padding: 1.5rem;
+      padding: .5rem;
       width: 100%;
       display: table;
     }

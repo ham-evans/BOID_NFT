@@ -20,6 +20,7 @@
     color: #fff;
     text-align: center;
     margin: 10px 25px;
+    font-size: 1.6rem;
 }
 
 .home p{ 
@@ -38,5 +39,16 @@
 }
 
 @media screen and (max-width: 960px) {
+    .home h1 { 
+        padding-top: 7%;
+        color: #fff;
+        font-size: 6rem;
+    }
 
+    .home h3{ 
+        color: #fff;
+        text-align: center;
+        margin: 10px 25px;
+        font-size: 1.3rem;
+    }
 }

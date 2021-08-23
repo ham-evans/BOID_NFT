@@ -6,13 +6,13 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin: 25% auto;
+    margin: auto;
     width: 100%;
   }
   
 .diff p { 
   color:  #fff;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   max-width: 70%;
   margin: 3rem auto 3rem auto;
   text-align: center;
@@ -41,6 +41,7 @@
   margin-right: 40px;
   margin-left: 40px;
   margin-bottom: 4rem;
+  min-width: 300px;
 }
 
 .diff__container {
@@ -75,6 +76,14 @@
     padding: 0 40px;
   }
 
+  .diff h1 { 
+    font-size: 2.6rem;
+  }
+
+  .diff p { 
+    font-size: 1.2rem;
+  }
+
   .diff__dContainer { 
     padding: 0 40px;
     flex-direction: column;
@@ -85,6 +94,7 @@
     list-style-type: none;
     text-align: center;
     margin-bottom: 0;
+    font-size: 1rem;
   }
 
   .diff__dContainer li { 

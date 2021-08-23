@@ -18,13 +18,22 @@ class Navbar extends Component {
 
   render () {
     return (
-      <nav className="navbar" id="#home">
+      <nav className="navbar" id="#fullhome">
         <div className="nav-container">
-          <HashLink smooth to="#home" className="nav-logo">
+          <HashLink smooth to="#fullhome" className="nav-logo">
             BOIDS
           </HashLink>
 
           <ul className={this.state.isOpen ? "nav-menu active" : "nav-menu"}>
+            <li className="nav-item">
+              <HashLink
+                smooth
+                to="#about"
+                className="nav-links"
+              >
+                ABOUT BOIDS
+              </HashLink>
+            </li>
             <li className="nav-item">
               <HashLink
                 smooth 
@@ -40,7 +49,7 @@ class Navbar extends Component {
                 to="#diffboids"
                 className="nav-links"
               >
-                ABOUT BOIDS
+                THE ART
               </HashLink>
             </li>
             <li className="nav-item">

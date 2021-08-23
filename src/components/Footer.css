@@ -1,0 +1,121 @@
+.footerbar {
+    margin-top: 75px;
+    background-color: transparent;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    top: 0;
+    z-index: 20;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    max-width: 1500px;
+  }
+  
+  .footer-logo {
+    color: #fff;
+    align-items: center;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    margin-right: auto;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 4rem;
+    flex-grow: 1;
+    max-width: 180px;
+    z-index: 2;
+  }
+
+  .footer-logo:hover{ 
+    color: #fff;
+  }
+  
+  .footer-menu {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 200px;
+  }
+  
+  .footer-links {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+  }
+  .fa-code {
+    margin-left: 1rem;
+  }
+  
+  .footer-item {
+    line-height: 40px;
+    margin-right: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .footer-item:after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: transparent;
+    transition: width 0.7s ease, background-color 0.5s ease;
+  }
+
+  .footer-item a { 
+      color: #fff
+  }
+
+  .footer-item:hover:after {
+    width: 100%;
+    background: #fff;
+    color: #fff;
+  }
+  
+  .footer-icon {
+    display: none;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .footerbar { 
+      margin-top: 60px;
+    }
+  
+    .footer-logo { 
+      font-size: 2.5rem;
+      margin-left: 25px;
+    }
+
+    .footer-menu {
+      display: flex;
+      flex-direction: row;
+      margin-right: 0;
+    }
+  
+    .footer-links {
+      width: 100%;
+    }
+  
+    .footer-icon {
+      display: block;
+      top: 0;
+      right: 0;
+      transform: translate(-100%, 60%);
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #fff;
+      margin-bottom: 65px;
+    }
+  }
+
+
+  
