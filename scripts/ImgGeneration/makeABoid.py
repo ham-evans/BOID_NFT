@@ -6,7 +6,7 @@ from randomGeneration import randGeneration
 from time import sleep, time
 import os
 from moviepy.editor import * 
-
+from createMetadata import writeMetadata
 
 width = 600
 height = 600
@@ -439,15 +439,17 @@ def makeMovie ():
     for i in range(1):
         boids = []
 
-        imgNumber = i
-        numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace = randGeneration(imgNumber)
+        imgNumber = 51
+        numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, traits = randGeneration(imgNumber)
 
         pathArray = mainFade (saveIt)
 
         if saveIt == True:
             clip = ImageSequenceClip(pathArray, fps = 48)
-            path = os.path.join("/Users/hamevans/Desktop/boidVideos/", str(imgNumber) + ".mp4")
+            path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/video/", str(imgNumber) + ".mp4")
             clip.write_videofile(path, fps = 48)
+
+            writeMetadata(imgNumber, traits)
 
 makeMovie()
 #mainFade (False)

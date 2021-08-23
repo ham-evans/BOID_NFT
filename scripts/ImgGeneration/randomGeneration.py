@@ -1,5 +1,4 @@
 from random import randint
-from createMetadata import writeMetadata
 
 def randGeneration (imgNumber): 
     colors = [(255,255,255), (238,0,0), (255,128,0), (255,255,0), (0,0,255), (154,255,154), (124,252,0), (0,255,255), (255,174,185), "random"]
@@ -95,7 +94,7 @@ def randGeneration (imgNumber):
         newColor = colorsToWords[fadeColor[1]]
 
     
-    traits = {
+    traits = [{
          'Number of Boids': numBoids, 
          'Speed Limit': speedLimit, 
          'Initial Color': colorsToWords[initialColor], 
@@ -103,8 +102,6 @@ def randGeneration (imgNumber):
          'Connectivity': linesBetween, 
          'Color Change': newColor, 
          'Trail': historyTrace
-         }
+         }]
     
-
-    writeMetadata(imgNumber, traits)
-    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace
+    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, traits
