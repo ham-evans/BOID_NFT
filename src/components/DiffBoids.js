@@ -39,42 +39,92 @@ class DiffBoids extends Component {
                 </div>
                 <div className="diff__container">
                     <div className="diff__member-individual">
-                        <video id="of1" className='diff_video' autoPlay loop muted >
-                            <source src={of1} type='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${of1}"
+                            class="diff_video"
+                            id="of1"
+                            />,
+                        `}}></div>
                         <figcaption className="caption">1/1 Gold</figcaption>
                     </div>
+
                     <div className="diff__member-individual">
-                        <video id="of5" className='diff_video' autoPlay loop muted >
-                            <source src={of5} type='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${of5}"
+                            class="diff_video"
+                            id="of5"
+                            />,
+                        `}}></div>
                         <figcaption className="caption">/5 Red</figcaption>
                     </div>
+
                     <div className="diff__member-individual">
-                        <video id="of10" className='diff_video' autoPlay loop muted >
-                            <source src={of10} type='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${of10}"
+                            class="diff_video"
+                            id="of10"
+                            />,
+                        `}}></div>
                         <figcaption className="caption">/10 White</figcaption>
                     </div>
 
                     <div className="diff__member-individual">
-                        <video id="of25" className='diff_video' autoPlay loop muted >
-                            <source src={of25} type='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${of25}"
+                            class="diff_video"
+                            id="of25"
+                            />,
+                        `}}></div>
                         <figcaption className="caption">/25 Blue</figcaption>
                     </div>
 
                     <div className="diff__member-individual">
-                        <video id="of50" className='diff_video' autoPlay loop muted >
-                            <source src={of50} type='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${of50}"
+                            class="diff_video"
+                            id="of50"
+                            />,
+                        `}}></div>
                         <figcaption className="caption">/50 Forest</figcaption>
                     </div>
 
                     <div className="diff__member-individual">
-                        <video id="of150" className='diff_video' autoPlay loop muted >
-                            <source src={of150} type='video/mp4' />
-                        </video>
+                    <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${of150}"
+                            class="diff_video"
+                            id="of150"
+                            />,
+                        `}}></div>
                         <figcaption className="caption">/150 Gray</figcaption>
                     </div>
                 </div>

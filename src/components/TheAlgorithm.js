@@ -14,23 +14,44 @@ class TheAlgorithm extends Component {
                 </div>
                 <div className="services__container">
                     <div className="services__card hideme">
-                        <video className='videoTag' autoPlay loop muted>
-                            <source src={towardMiddle} typ='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${towardMiddle}"
+                            class="videoTag"
+                            />,
+                        `}}></div>
                         <h2>Cohesion</h2>
                         <p>Boids steer gradually towards center of the group of boids within their visual range.</p>
                     </div>
                     <div className="services__card hideme">
-                        <video className='videoTag' autoPlay loop muted>
-                            <source src={avoidOthers} typ='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${avoidOthers}"
+                            class="videoTag"
+                            />,
+                        `}}></div>
                         <h2>Separation</h2>
                         <p>To avoid collisions, boids move away from each other if they get too close.</p>
                     </div>
                     <div className="services__card hideme">
-                        <video className='videoTag' autoPlay loop muted>
-                            <source src={matchVelo} typ='video/mp4' />
-                        </video>
+                        <div dangerouslySetInnerHTML={{ __html: `
+                            <video
+                            loop
+                            muted
+                            autoplay
+                            playsinline
+                            src="${matchVelo}"
+                            class="videoTag"
+                            />,
+                        `}}></div>
                         <h2>Alignment</h2>
                         <p>Boids attempt to match the vector (speed and direction), of the boids around them.</p>
                     </div>
