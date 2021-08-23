@@ -1,6 +1,6 @@
   .services {
     margin-top: 0px;
-    padding-bottom: 200px;
+    margin-bottom: 200px;
     background: #000;
     display: flex;
     flex-direction: column;
@@ -83,7 +83,7 @@
   }
  
   .services__card:hover {
-    transform: scale(1.075);
+    transform: scale(1.055);
     transition: all 0.35s;
   }
   
