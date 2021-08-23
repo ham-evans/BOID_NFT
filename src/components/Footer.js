@@ -21,7 +21,7 @@ class Footer extends Component {
               </Link>
             </li>
             <li className="footer-item">
-              <Link className="footer-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
+              <Link className="footer-links" to={{ pathname: "https://discord.gg/XvWwuVdQ" }} target="_blank" >
                 <FontAwesomeIcon icon={faDiscord} />
               </Link>
             </li>

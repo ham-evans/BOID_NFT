@@ -22,7 +22,6 @@ class App extends Component {
           <Switch />
           <Navbar />
           <Home/>
-          <Mint />
           <About />
           <TheAlgorithm />
           <DiffBoids />

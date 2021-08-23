@@ -58,7 +58,7 @@ class Navbar extends Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
+              <Link className="nav-links" to={{ pathname: "https://discord.gg/XvWwuVdQ" }} target="_blank" >
                 <FontAwesomeIcon icon={faDiscord} />
               </Link>
             </li>
