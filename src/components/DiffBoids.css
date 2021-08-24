@@ -76,6 +76,11 @@
 }
 
 @media screen and (max-width: 960px) {
+  .diff { 
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
   .diff__container {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
@@ -91,7 +96,6 @@
   }
 
   .diff__dContainer { 
-    padding: 0 40px;
     flex-direction: column;
     margin-bottom: 4rem;
   }
@@ -100,6 +104,7 @@
     text-align: center;
     margin-bottom: 0;
     font-size: 1rem;
+    padding-left: 0;
   }
 
   .diff__dContainer li { 

@@ -8,6 +8,12 @@
     align-items: center;
     height: 100%;
   }
+
+  .services__dContainer { 
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
   
   .services h1 {
     background-color: #fff;
@@ -23,7 +29,7 @@
     color:  #fff;
     font-size: 1.4rem;
     max-width: 80%;
-    margin: 3rem auto 3rem auto;
+    margin: auto auto 3rem auto;
     text-align: center;
   }
   
@@ -45,7 +51,6 @@
         rgba(17, 17, 17, 0.6) 100%
       );
     background-size: cover;
-    position: relative;
     color: #fefffe;
     border: 2px solid #fff;
     border-radius: 5px;
@@ -90,29 +95,30 @@
   @media screen and (max-width: 960px) {
     .services {
       height: 100%;
-      padding-top: 300px;
-      padding-bottom: 300px;
-      margin-bottom: 500px;
+      margin-top: 12rem;
     }
   
     .services h1 {
       font-size: 2.4rem;
-      margin-top: 12rem;
     }
 
     .services__dContainer p { 
       font-size: 1.2rem;
     }
+
+    .services__container { 
+      height: 100%;
+    }
   }
   
   @media screen and (max-width: 480px) {
-    .services {
-      height: 1400px;
-      margin-top: 100px;
+    .services__dContainer { 
+      height: 100%;
     }
   
     .services h1 {
       font-size: 2.4rem;
+      margin-bottom: 0;
     }
   
     .services__card {
