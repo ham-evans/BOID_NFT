@@ -3,11 +3,12 @@ from pathlib import Path
 import requests
 import os
 from time import sleep
+import json
 
 def writeMetadata (tokenId, traits): 
     collectibleMetadata = metadata_template
 
-    metadataFilename = ("../metadata/ropsten/" + str(tokenId) + ".json")
+    metadataFilename = ("../../metadata/ropsten/" + str(tokenId) + ".json")
     if Path (metadataFilename).exists(): 
         print("{} already found!".format(metadataFilename))
     else: 
@@ -18,7 +19,18 @@ def writeMetadata (tokenId, traits):
 
         sleep(3)
         imagePath = "../../video/{}.mp4".format(tokenId)
+        imageToUpload = None
+            
         imageToUpload = uploadToIFPS(imagePath)
+        
+        collectibleMetadata["image"] = imageToUpload
+
+        with open(metadataFilename, "w") as file:
+            json.dump(collectibleMetadata, file)
+        
+        uploadToIFPS(metadataFilename)
+            
+
 
 def uploadToIFPS (filepath): 
     with Path(filepath).open("rb") as fp:
@@ -32,7 +44,3 @@ def uploadToIFPS (filepath):
         print(uri)
         return uri
     return None
-
-        
-
-writeMetadata(50, [])

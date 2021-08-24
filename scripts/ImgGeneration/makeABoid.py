@@ -439,7 +439,7 @@ def makeMovie ():
     for i in range(1):
         boids = []
 
-        imgNumber = 51
+        imgNumber = 11
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, traits = randGeneration(imgNumber)
 
         pathArray = mainFade (saveIt)
