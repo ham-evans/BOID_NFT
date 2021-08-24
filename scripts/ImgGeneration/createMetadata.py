@@ -21,14 +21,14 @@ def writeMetadata (tokenId, traits):
         imagePath = "../../video/{}.mp4".format(tokenId)
         imageToUpload = None
             
-        imageToUpload = uploadToIFPS(imagePath)
+       # imageToUpload = uploadToIFPS(imagePath)
         
-        collectibleMetadata["image"] = imageToUpload
+        #collectibleMetadata["image"] = imageToUpload
 
         with open(metadataFilename, "w") as file:
             json.dump(collectibleMetadata, file)
         
-        uploadToIFPS(metadataFilename)
+        #uploadToIFPS(metadataFilename)
             
 
 
