@@ -19,8 +19,8 @@ class Home extends Component {
                 
                 <div className="home__textcontainer">
                     <h1>BOIDS</h1>
-                    <h3>A collection of 2000 emergent video art pieces deployed on the ERC-721 token</h3>
-                    <h3>LAUNCHING EARLY SEPTEMBER 2021</h3>
+                    <h3 className="home_textcontainer-spiel">A collection of 2000 emergent video art pieces deployed on the ERC-721 token</h3>
+                    <h3 className="home_textcontainer-launch">LAUNCHING EARLY SEPTEMBER 2021</h3>
 
                 </div>
             </div>
