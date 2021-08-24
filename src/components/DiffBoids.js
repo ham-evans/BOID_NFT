@@ -17,7 +17,7 @@ class DiffBoids extends Component {
                     <div>
                         <ul>
                             <li>Initial Boid Color</li>
-                            <li>Background Color (Default Black)</li>
+                            <li>Background Color<br />(Default Black)</li>
                             
                         </ul>
                     </div>

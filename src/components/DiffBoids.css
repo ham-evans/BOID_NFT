@@ -8,6 +8,7 @@
     height: 100%;
     margin: auto;
     width: 100%;
+    margin-bottom: 250px;
   }
   
 .diff p { 
@@ -34,14 +35,19 @@
 .diff__dContainer { 
   display: flex;
   flex-direction: row;
+  max-width: 80%;
+
 }
 
 .diff__dContainer ul{ 
   font-size: 1.2rem;
-  margin-right: 40px;
-  margin-left: 40px;
   margin-bottom: 4rem;
   min-width: 300px;
+}
+
+.diff__dContainer li { 
+  list-style-position: inside;
+  text-align: center;
 }
 
 .diff__container {
@@ -91,7 +97,6 @@
   }
 
   .diff__dContainer ul{ 
-    list-style-type: none;
     text-align: center;
     margin-bottom: 0;
     font-size: 1rem;

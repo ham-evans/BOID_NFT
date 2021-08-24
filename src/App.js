@@ -23,8 +23,8 @@ class App extends Component {
           <Navbar />
           <Home/>
           <About />
-          <TheAlgorithm />
           <DiffBoids />
+          <TheAlgorithm />
           <Footer />
 
         </Router> 

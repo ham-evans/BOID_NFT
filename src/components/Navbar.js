@@ -36,15 +36,6 @@ class Navbar extends Component {
             </li>
             <li className="nav-item">
               <HashLink
-                smooth 
-                to="#thealgorithm"
-                className="nav-links"
-              >
-                THE ALGORITHM
-              </HashLink>
-            </li>
-            <li className="nav-item">
-              <HashLink
                 smooth
                 to="#diffboids"
                 className="nav-links"
@@ -52,6 +43,17 @@ class Navbar extends Component {
                 THE ART
               </HashLink>
             </li>
+            
+            <li className="nav-item">
+              <HashLink
+                smooth 
+                to="#thealgorithm"
+                className="nav-links"
+              >
+                THE ALGORITHM
+              </HashLink>
+            </li>
+            
             <li className="nav-item">
               <Link className="nav-links" to={{ pathname: "https://twitter.com/BOIDS_NFT" }} target="_blank" >
                 <FontAwesomeIcon icon={faTwitter} />
