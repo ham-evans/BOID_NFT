@@ -11,8 +11,11 @@ class DiffBoids extends Component {
     render () {
         return (
             <div className="diff" id="diffboids">
-                <h1>TYPES OF BOIDS</h1>
-                <p>Each boid is unique, random, and generated algorithmically.  The list of boid features and a variety of examples are shown below.  Certain rare features will also be released at mint!</p>
+                <div className="diff__titleContainer">
+                    <h1>TYPES OF BOIDS</h1>
+                    <p>Each boid is unique, random, and generated algorithmically.  The list of boid features and a variety of examples are shown below.  Certain rare features will also be released at mint!</p>
+                </div>
+                
                 <div className="diff__dContainer">
                     <div>
                         <ul>
