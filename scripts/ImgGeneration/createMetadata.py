@@ -17,7 +17,6 @@ def writeMetadata (tokenId, traits):
         collectibleMetadata["description"] = "BOIDS are algorithmically designed collection of 2000 digital assets on the Ethereum Blockchain."
         collectibleMetadata["attributes"] = traits
 
-        sleep(3)
         imagePath = "../../video/{}.mp4".format(tokenId)
         imageToUpload = None
             
