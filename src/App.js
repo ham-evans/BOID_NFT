@@ -4,6 +4,7 @@ import Home from './components/Home';
 import TheAlgorithm from './components/TheAlgorithm';
 import DiffBoids from './components/DiffBoids';
 import Mint from './components/Mint'
+import MintHome from './components/MintHome'
 import About from './components/About'
 import Footer from './components/Footer'
 import { BrowserRouter as Router, Switch } from "react-router-dom";
@@ -21,8 +22,7 @@ class App extends Component {
         <Router>
           <Switch />
           <Navbar />
-          <Home/>
-          <Mint />
+          <MintHome />
           <About />
           <TheAlgorithm />
           <DiffBoids />

@@ -347,7 +347,28 @@ def makeMovesFade (totalSteps):
             boid.slowDx = boid.dx
             boid.slowDy = boid.dy
 
-def mainFade (saveImages):
+def generateId (boidRange):
+    ids = []
+    readIt = open('boidIds.txt', 'r')
+    for id in readIt.readlines(): 
+        try: 
+            ids.append(int(id))
+        except: 
+            continue
+
+    readIt.close()
+
+    newId = randint(1, boidRange)
+
+    while newId in ids: 
+        newId = randint(1, boidRange)
+        
+    if newId not in ids: 
+        writeIt = open('boidIds.txt', 'a')
+        writeIt.write(str(newId) + '\n')
+        return newId
+    
+def mainFade (saveImages, boidId):
     initPositions()
 
     makeMovesFade (totalSteps)
@@ -406,24 +427,27 @@ def mainFade (saveImages):
                 boid.historyColor.append(boid.color)
                 boid.history.append([boid.x, boid.y])
                 boid.history = boid.history[-50:]
-                for i in range(0, len(boid.history) - 1):
-                    pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
+                if blink == False or (round((steps / 36) % 2)) != 0:
+                    for i in range(0, len(boid.history) - 1):
+                        pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
 
             if linesBetween:
                 linehistory, dontAddLine = buildGraph(boid, screen, linehistory, dontAddLine)
-
-        for line in linehistory:
-            pygame.draw.line(screen, line[0], line[1].coords(), line[2].coords())
         
-        for boid in boids:
-            pygame.draw.circle(screen, boid.color, boid.coords(), 3)
+        
+        if blink == False or (round((steps / 36) % 2)) != 0:
+            for line in linehistory:
+                pygame.draw.line(screen, line[0], line[1].coords(), line[2].coords())
+            
+            for boid in boids:
+                pygame.draw.circle(screen, boid.color, boid.coords(), 3)
         
         if steps != 1:
             pygame.display.update()
             pygame.display.flip()
 
             if saveImages == True: 
-                path = "/Users/hamevans/Desktop/boidImages/" + str(imgNumber) + "/"
+                path = "/Users/hamevans/Desktop/boidImages/" + str(boidId) + "/"
                 if os.path.exists(path) == False: 
                     os.mkdir(path)
                 path = os.path.join(path, str(steps) + ".png")
@@ -434,22 +458,34 @@ def mainFade (saveImages):
     return(pathArray)
 
 def makeMovie ():
-    global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits
+    boidRange = 10
+
+    global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits, blink
     saveIt = True
-    for i in range(1):
+    for i in range(1, boidRange+1):
         boids = []
 
-        imgNumber = 51
-        numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, traits = randGeneration(imgNumber)
+        boidId = generateId (boidRange)
 
-        pathArray = mainFade (saveIt)
+        if type(boidId) != int: 
+            print("Boid ID generation failed. Boid ID was: {}".format(boidId))
+            return
+        
+        else: 
+            print()
+            print("new boid id: {}".format(boidId))
+
+        numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, blink, traits = randGeneration(i)
+        numBoids=20
+        pathArray = mainFade (saveIt, boidId)
 
         if saveIt == True:
             clip = ImageSequenceClip(pathArray, fps = 48)
-            path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/video/", str(imgNumber) + ".mp4")
+            path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/video/", str(boidId) + ".mp4")
             clip.write_videofile(path, fps = 48)
 
-            writeMetadata(imgNumber, traits)
+            writeMetadata(boidId, traits)
+
 
 makeMovie()
-#mainFade (False)
+

@@ -1,11 +1,11 @@
-from random import randint
+from random import randint, uniform
 
 def randGeneration (imgNumber): 
     colors = [(255,255,255), (238,0,0), (255,128,0), (255,255,0), (0,0,255), (154,255,154), (124,252,0), (0,255,255), (255,174,185), "random"]
     feed = randint(1, 11)
-    speedLimit = randint(2, 6)
+    speedLimit = round(uniform(1.0001, 6), 6)
     linesBetween = False
-    numBoids = randint(50, 120)
+    numBoids = randint(20, 119)
     fadeColor = (False, (0,0,0))
     historyTrace = False
 
@@ -69,6 +69,7 @@ def randGeneration (imgNumber):
         backgroundColor = (135,206,250)
 
     elif imgNumber > 41 and imgNumber < 92:
+        #/50 forest green background 
         backgroundColor = (11,102,35)
 
     elif imgNumber > 91 and imgNumber < 241: 
@@ -83,25 +84,77 @@ def randGeneration (imgNumber):
         
     else: 
         backgroundColor = (0,0,0)
-    
 
+    if randint(1, 95) == 77:
+        blink = True 
+    else: 
+        blink = False
+
+
+    traits = giveTraits (numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, blink)
+    
+    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, blink, traits
+
+
+def giveTraits (numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, blink): 
     colorsToWords = {(11,102,35): "Forest Green", (192,192,192): "Gray", (250,128,114): "Red", (0,0,0): "Black", (255,203,25): "Gold", (255,255,255): "White", (238,0,0): "Red", (255,128,0): "Orange", (255,255,0): "Yellow", (0,0,255): "Blue", (154,255,154): "Green", (124,252,0): "Lime", (135,206,250): "Light Blue", (0,255,255): "Aqua", (255,174,185): "Pink", "random": "Random"}
 
     if fadeColor[0] == False: 
         if fadeColor[1] == (0,0,0): 
-            newColor = "None"
+            newColor = "No Color Change"
     else: 
         newColor = colorsToWords[fadeColor[1]]
 
+    speedLimitTrait = round((speedLimit - 1) / 5, 2)
     
-    traits = [{
-         'Number of Boids': numBoids, 
-         'Speed Limit': speedLimit, 
-         'Initial Color': colorsToWords[initialColor], 
-         'Background Color': colorsToWords[backgroundColor], 
-         'Connectivity': linesBetween, 
-         'Color Change': newColor, 
-         'Trail': historyTrace
-         }]
+    if linesBetween == True: 
+        linesBetweenTrait = "Connected"
+    else: 
+        linesBetweenTrait = "Not Connected"
     
-    return numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, traits
+    if historyTrace == True: 
+        trail = "Glowing Trail"
+    else: 
+        trail = "No Trail" 
+
+    if blink == True: 
+        blinkTrait = "Blinking"
+    else: 
+        blinkTrait = "Not Blinking"
+
+    traits = [
+        {
+            "trait_type": "Number of Boids", 
+            "value": int(numBoids)
+        }, 
+        {
+            "trait_type": "Speed Limit", 
+            "value": int(speedLimitTrait)
+        }, 
+        {
+            "trait_type": "Background Color", 
+            "value": colorsToWords[backgroundColor]
+        }, 
+        { 
+            "trait_type": "Initial Color", 
+            "value": colorsToWords[initialColor]
+        },
+        {
+            "trait_type": "Color Change To", 
+            "value": newColor
+        }, 
+        {
+            "trait_type": "Connectivity", 
+            "value": linesBetweenTrait
+        },
+        {
+            "trait_type": "Trail", 
+            "value": trail
+        },
+        {
+            "trait_type": "Blink", 
+            "value": blinkTrait
+        }
+    ]
+
+    return traits

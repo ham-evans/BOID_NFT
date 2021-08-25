@@ -74,10 +74,10 @@ export default function Mint () {
             .catch(function (error) {
                 if (error.code === 4001) {
                     // User rejected request
+                } else { 
+                    console.log("Error is here")
+                    console.error(error)
                 }
-              
-                console.log("Error is here")
-                console.error(error)
             })
         } else {
           alert("No Ethereum interface injected into browser. Read-only access");

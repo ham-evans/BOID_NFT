@@ -14,7 +14,7 @@ def writeMetadata (tokenId, traits):
     else: 
         print("Creating Metadata File {}.".format(metadataFilename))
         collectibleMetadata["name"] = "Boid #{}".format(tokenId)
-        collectibleMetadata["description"] = "BOIDS are algorithmically designed collection of 2000 digital assets on the Ethereum Blockchain."
+        collectibleMetadata["description"] = "With 2000 algorithmically designed digital videos on the Ethereum Blockchain, BOIDS are the NFT homage to emergence. Official website at BOIDS.co."
         collectibleMetadata["attributes"] = traits
 
         imagePath = "../../video/{}.mp4".format(tokenId)
@@ -30,7 +30,7 @@ def writeMetadata (tokenId, traits):
         #uploadToIFPS(metadataFilename)
             
 
-
+"""
 def uploadToIFPS (filepath): 
     with Path(filepath).open("rb") as fp:
         imageBinary = fp.read()
@@ -43,3 +43,4 @@ def uploadToIFPS (filepath):
         print(uri)
         return uri
     return None
+"""

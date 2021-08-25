@@ -28,6 +28,7 @@
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "4.0.3",
     "react-scroll": "^1.8.3",
+    "rsuite": "^4.10.2",
     "styled-components": "^5.3.0",
     "web-vitals": "^1.1.2"
   },
