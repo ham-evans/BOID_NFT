@@ -1,0 +1,11 @@
+(await boids.withdraw()).toString()
+(await boids.saleIsActive()).toString()
+(await boids.flipSaleState())
+(await boids.MAX_BOIDS()).toString()
+await boids.MAX_BOIDS().toString()
+await boids.MAX_BOIDS()
+await boids.MAX_BOIDS
+(await boids.totalSupply()).toString()
+await boids.MAX_BOIDS
+const boids = await Boids.attach('0xeAceC5181402623d9E5AaE97d7765C9b9cEa73Ad')
+const Boids = await ethers.getContractFactory("Boids")

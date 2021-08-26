@@ -16,6 +16,8 @@ def writeMetadata (tokenId, traits):
         collectibleMetadata["name"] = "Boid #{}".format(tokenId)
         collectibleMetadata["description"] = "With 2000 algorithmically designed digital videos on the Ethereum Blockchain, BOIDS are the NFT homage to emergence. Official website at BOIDS.co."
         collectibleMetadata["attributes"] = traits
+        collectibleMetadata["seller_fee_basis_points"] = 200
+        collectibleMetadata["fee_recipient"] = "0x97EF605Ff1A1527b9239Bb009D7D1B004a5Ef384" # boids account address
 
         imagePath = "../../video/{}.mp4".format(tokenId)
         imageToUpload = None

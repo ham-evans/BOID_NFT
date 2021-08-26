@@ -3,7 +3,6 @@ import "./MintHome.css";
 import { ethers } from 'ethers';
 import Boids from '../artifacts/contracts/Boids.sol/Boids.json';
 import bgVideo from '../images/mainBackgroundVideo.mp4';
-import { Slider, RangeSlider } from 'rsuite';
 
 const boidsAddress = '0xeAceC5181402623d9E5AaE97d7765C9b9cEa73Ad';
 
@@ -26,7 +25,7 @@ export default function MintHome () {
         if (typeof window.ethereum !== 'undefined') {
             window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
             const network = await window.ethersProvider.getNetwork();
-            if (network.chainId == 3){
+            if (network.chainId === 4){
                 await window.ethereum.request({ method: 'eth_requestAccounts' })
                 .then(async function (accounts) {
                     if (accounts.length > 0) {
@@ -48,7 +47,7 @@ export default function MintHome () {
                 })
             } else { 
                 setSignedIn(false)
-                alert("Switch network to Ropsten Test Network before continuing.")
+                alert("Switch network to Rinkeby Test Network before continuing.")
             }
             
         } else {
@@ -142,7 +141,9 @@ export default function MintHome () {
 
                     <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 1500</span></h3>
                     
-                    <p>Input number of boids to mint:</p>
+                    {signedIn ? <p>Input number of BOIDS to mint:</p>
+                        : <p>Sign in above to mint BOIDS!</p>
+                    }
 
                     <input 
                         type="number" 

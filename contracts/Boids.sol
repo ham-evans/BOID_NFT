@@ -11,7 +11,7 @@ contract Boids is ERC721URIStorage, Ownable {
 
     string public BOID_IFPS = ""; //IFPS link for reveal 
 
-    uint256 public constant MAX_BOIDS = 1500;
+    uint256 public constant MAX_BOIDS = 2000;
     uint256 public constant boidPrice = 25000000000000000; //0.025 eth
     uint public constant maxBoidPurchase = 20;
     uint256 public totalSupply = 0; 
