@@ -14,7 +14,7 @@ contract Boids is ERC721URIStorage, Ownable {
     uint public constant maxBoidPurchase = 20;
     uint256 public totalSupply = 0; 
 
-    bool public saleIsActive = false;
+    bool public saleIsActive = true;
 
     string private _baseTokenURI;
 
