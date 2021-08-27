@@ -9,10 +9,10 @@ describe("Boid contract", function () {
   let addrs;
 
   beforeEach(async function () {
-    Boid = await ethers.getContractFactory("Boid");
+    Boid = await ethers.getContractFactory("Boids");
     [owner, addr1, addr2] = await ethers.getSigners();
 
-    contract = await Boid.deploy();
+    contract = await Boid.deploy("");
   });
 
   describe("Deployment", function () {
@@ -29,26 +29,20 @@ describe("Boid contract", function () {
     });
 
     it("Should set max boids and current boids", async function () { 
-      expect(await contract.MAX_BOIDS()).to.equal(1000);
+      expect(await contract.MAX_BOIDS()).to.equal(2000);
       expect(await contract.totalSupply()).to.equal(0);
     })
 
     it("Sale inactive, IFPS is blank", async function () { 
       expect(await contract.saleIsActive()).to.equal(false);
-      expect(await contract.BOID_IFPS()).to.equal("");
     })
 
     it("Should set flip sale state", async function () { 
       await contract.flipSaleState();
       expect(await contract.saleIsActive()).to.equal(true);
     })
-
-    it("Should change IFPS", async function () { 
-      await contract.setIFPShash("This is the hash");
-      expect(await contract.BOID_IFPS()).to.equal("This is the hash");
-    })
   });
-
+/*
   describe("Minting", async () => { 
     
     it("Should mint a token", async function () { 
@@ -78,8 +72,20 @@ describe("Boid contract", function () {
       expect(await contract.ownerOf(2)).to.equal(addr1.address);
       expect((await contract.balanceOf(addr1.address)).toNumber()).to.equal(4);
       expect((await contract.balanceOf(addr2.address)).toNumber()).to.equal(1);
+    })
+  });
+*/
+  describe("Setting base URI", async () => { 
+    it("Should set base uri", async function () { 
+      const numToMint = 5; 
+      await contract.flipSaleState();
+      expect(await contract._baseTokenURI()).to.equal("");
+    })
 
-      
+    it("Should change base uri", async function () { 
+      expect(await contract._baseTokenURI()).to.equal("");
+      await contract.setBaseURI("This is now the URI");
+      expect(await contract._baseURI()).to.equal("This is now the URI");
     })
   });
 });

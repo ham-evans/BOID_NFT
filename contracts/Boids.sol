@@ -9,8 +9,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Boids is ERC721URIStorage, Ownable {
     using SafeMath for uint256;
 
-    string public BOID_IFPS = ""; //IFPS link for reveal 
-
     uint256 public constant MAX_BOIDS = 2000;
     uint256 public constant boidPrice = 25000000000000000; //0.025 eth
     uint public constant maxBoidPurchase = 20;
@@ -18,11 +16,18 @@ contract Boids is ERC721URIStorage, Ownable {
 
     bool public saleIsActive = false;
 
-    constructor() ERC721("Boid", "BOID") { }
+    string private _baseTokenURI;
 
-    function setIFPShash(string memory IFPShash) public onlyOwner {
-        // Set IFPS link on reveal
-        BOID_IFPS = IFPShash;
+    constructor(string memory baseURI) ERC721("Boid", "BOID") { 
+        setBaseURI (baseURI);
+    }
+
+    function setBaseURI(string memory baseURI) public onlyOwner {
+        _baseTokenURI = baseURI;
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return _baseTokenURI;
     }
 
     function flipSaleState() public onlyOwner {
@@ -46,10 +51,5 @@ contract Boids is ERC721URIStorage, Ownable {
                 _safeMint(msg.sender, totalSupply);
             }
         }
-    }
-
-    function setTokenUri (uint256 tokenId, string memory _tokenURI) public { 
-        require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721 transfer caller is not owner or approved.");
-        _setTokenURI(tokenId, _tokenURI);
     }
 }

@@ -1,6 +1,8 @@
 const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
+const recursive = require('recursive-fs');
+const basePathConverter = require('base-path-converter');
 const dotenv = require('dotenv'); 
 dotenv.config({ path: '/Users/hamevans/Documents/Blockchain/boidnfts/.env' })
 
@@ -26,8 +28,9 @@ var pinVideoToIPFS = (fileName) => {
             }
         })
         .then(function (response) {
-            console.log(response.data.IpfsHash);
-            pinMetadataToIPFS (fileName, response.data.IpfsHash)
+            console.log(fileName, response.data.IpfsHash);
+            addCIDtoMetadata(fileName, response.data.IpfsHash)
+            console.log("Video CID added to Metadata")
         })
         .catch(function (error) {
             console.log(error);
@@ -70,7 +73,7 @@ var pinMetadataToIPFS = (fileName, videoCID) => {
 var addCIDtoMetadata = (fileName, videoCID) => { 
     const filePath = '../../metadata/ropsten/' + fileName + '.json';
     var data = JSON.parse(fs.readFileSync(filePath).toString());
-    data["image"] = "https://ipfs.io/ipfs/{}?filename={}".format(videoCID, fileName);
+    data["image"] = "https://ipfs.io/ipfs/" + videoCID + "?filename=" + fileName;
     fs.writeFileSync(filePath, JSON.stringify(data));
 }
 
@@ -82,3 +85,56 @@ var addMetatdataURItoFile = (uri) => {
     })
 
 }
+
+const pinDirectoryToIPFS = () => {
+    const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+    const src = '../../metadata/rinkeby';
+
+    recursive.readdirr(src, function (err, dirs, files) {
+        let data = new FormData();
+        files.forEach((file) => {
+            data.append(`file`, fs.createReadStream(file), {
+                filepath: basePathConverter(src, file)
+            });
+        });
+
+        const metadata = JSON.stringify({
+            name: 'BOIDS',
+        });
+        data.append('pinataMetadata', metadata);
+
+        return axios
+            .post(url, data, {
+                maxBodyLength: 'Infinity', 
+                headers: {
+                    'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                    pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+                    pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET
+                }
+            })
+            .then(function (response) {
+                console.log('Metadata uploaded to IPFS at: ')
+                console.log(response.data.IpfsHash) ;
+                console.log()
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+};
+
+
+var uploadMetadataFolderToIPFS = () =>  { 
+    fs.readdir('../../video', (err, files) => {
+        files = files.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
+        files = files.sort()
+        files.forEach(file => {
+          file = file.slice(0, -4)
+          pinVideoToIPFS(file);
+        });
+    });
+    pinDirectoryToIPFS ();
+}
+
+uploadMetadataFolderToIPFS()
