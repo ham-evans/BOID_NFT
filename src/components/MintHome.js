@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import Boids from '../artifacts/contracts/Boids.sol/Boids.json';
 import bgVideo from '../images/mainBackgroundVideo.mp4';
 
-const boidsAddress = '0xeAceC5181402623d9E5AaE97d7765C9b9cEa73Ad';
+const boidsAddress = '0xa95aFB459ef0b3249A188164bC174180797FD192d';
 
 export default function MintHome () {
     const [signedIn, setSignedIn] = useState(false);

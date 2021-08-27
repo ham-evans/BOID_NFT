@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 async function main () { 
     const Boids = await hre.ethers.getContractFactory("Boids");
-    const boids = await Boids.deploy()
+    const boids = await Boids.deploy("ipfs://QmWDAVBDmGRJ6CtZvz1ZpK6Ztr1Y1DuLc9FkDDUaaSEjf5")
 
     await boids.deployed();
     console.log("Boids deployed to ", boids.address);
