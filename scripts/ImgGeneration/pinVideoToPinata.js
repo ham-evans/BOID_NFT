@@ -1,3 +1,6 @@
+//import { createRequire } from "module";
+//const require = createRequire(import.meta.url);
+
 const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
@@ -8,18 +11,16 @@ dotenv.config({ path: '/Users/hamevans/Documents/Blockchain/boidnfts/.env' })
 
 var pinVideoToIPFS = (fileName) => {
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
-    fullFileName = fileName + '.mp4'
 
     let data = new FormData();
-    data.append('file', fs.createReadStream('../../video/' + fullFileName));
+    data.append('file', fs.createReadStream('../../video/' + fileName));
 
     const metadata = JSON.stringify({
-        name: fullFileName,
+        name: fileName,
     });
     data.append('pinataMetadata', metadata);
 
-    return axios
-        .post(url, data, {
+    return axios.post(url, data, {
             maxBodyLength: 'Infinity',
             headers: {
                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
@@ -28,7 +29,7 @@ var pinVideoToIPFS = (fileName) => {
             }
         })
         .then(function (response) {
-            console.log(fileName, response.data.IpfsHash);
+            console.log(fileName, response.data.IpfsHash)
             addCIDtoMetadata(fileName, response.data.IpfsHash)
             console.log("Video CID added to Metadata")
         })
@@ -40,7 +41,7 @@ var pinVideoToIPFS = (fileName) => {
 var pinMetadataToIPFS = (fileName, videoCID) => {
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
     addedFileName = fileName + '.json';
-    const filePath = '../../metadata/ropsten/' + addedFileName
+    const filePath = '../../metadata/rinkeby/' + addedFileName
 
     addCIDtoMetadata (fileName, videoCID)
 
@@ -71,7 +72,8 @@ var pinMetadataToIPFS = (fileName, videoCID) => {
 };
 
 var addCIDtoMetadata = (fileName, videoCID) => { 
-    const filePath = '../../metadata/ropsten/' + fileName + '.json';
+    file = fileName.slice(0, -4)
+    const filePath = '../../metadata/rinkeby/' + file + '.json';
     var data = JSON.parse(fs.readFileSync(filePath).toString());
     data["image"] = "https://ipfs.io/ipfs/" + videoCID + "?filename=" + fileName;
     fs.writeFileSync(filePath, JSON.stringify(data));
@@ -94,7 +96,7 @@ const pinDirectoryToIPFS = () => {
         let data = new FormData();
         files.forEach((file) => {
             data.append(`file`, fs.createReadStream(file), {
-                filepath: basePathConverter(src, file)
+                filepath: basePathConverter(src, file.slice(0,-5))
             });
         });
 
@@ -103,8 +105,7 @@ const pinDirectoryToIPFS = () => {
         });
         data.append('pinataMetadata', metadata);
 
-        return axios
-            .post(url, data, {
+        return axios.post(url, data, {
                 maxBodyLength: 'Infinity', 
                 headers: {
                     'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
@@ -130,11 +131,12 @@ var uploadMetadataFolderToIPFS = () =>  {
         files = files.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
         files = files.sort()
         files.forEach(file => {
-          file = file.slice(0, -4)
-          pinVideoToIPFS(file);
+          pinVideoToIPFS(file)
         });
     });
-    pinDirectoryToIPFS ();
 }
 
-uploadMetadataFolderToIPFS()
+pinDirectoryToIPFS ();
+
+//uploadMetadataFolderToIPFS()
+//pinVideoToIPFS(1)

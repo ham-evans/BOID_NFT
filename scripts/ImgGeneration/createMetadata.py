@@ -8,7 +8,7 @@ import json
 def writeMetadata (tokenId, traits): 
     collectibleMetadata = metadata_template
 
-    metadataFilename = ("../../metadata/ropsten/" + str(tokenId) + ".json")
+    metadataFilename = ("../../metadata/rinkeby/" + str(tokenId) + ".json")
     if Path (metadataFilename).exists(): 
         print("{} already found!".format(metadataFilename))
     else: 

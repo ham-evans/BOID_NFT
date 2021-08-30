@@ -458,14 +458,15 @@ def mainFade (saveImages, boidId):
     return(pathArray)
 
 def makeMovie ():
-    boidRange = 10
+    boidRange = 1 #set number of boids made here!
 
     global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits, blink
     saveIt = True
     for i in range(1, boidRange+1):
         boids = []
 
-        boidId = generateId (boidRange)
+        #boidId = generateId (boidRange)
+        boidId = 6
 
         if type(boidId) != int: 
             print("Boid ID generation failed. Boid ID was: {}".format(boidId))
@@ -483,6 +484,9 @@ def makeMovie ():
             clip = ImageSequenceClip(pathArray, fps = 48)
             path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/video/", str(boidId) + ".mp4")
             clip.write_videofile(path, fps = 48)
+            clip = VideoFileClip(path)
+            path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/gif/", str(boidId) + ".gif")
+            clip.write_gif(path)
 
             writeMetadata(boidId, traits)
 
