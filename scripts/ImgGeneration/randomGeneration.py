@@ -105,7 +105,7 @@ def giveTraits (numBoids, speedLimit, initialColor, backgroundColor, linesBetwee
     else: 
         newColor = colorsToWords[fadeColor[1]]
 
-    speedLimitTrait = round((speedLimit - 1) / 5, 2)
+    speedLimitTrait = round((speedLimit - 1) / 5, 2) * 100
     
     if linesBetween == True: 
         linesBetweenTrait = "Connected"

@@ -10,15 +10,15 @@ contract Boids is ERC721URIStorage, Ownable {
     using SafeMath for uint256;
 
     uint256 public constant MAX_BOIDS = 2000;
-    uint256 public constant boidPrice = 25000000000000000; //0.025 eth
+    uint256 public constant boidPrice = 30000000000000000; //0.03 eth
     uint public constant maxBoidPurchase = 20;
     uint256 public totalSupply = 0; 
 
-    bool public saleIsActive = true;
+    bool public saleIsActive = false;
 
     string private _baseTokenURI;
 
-    constructor(string memory baseURI) ERC721("Boid", "BOID") { 
+    constructor(string memory baseURI) ERC721("BOIDS", "BOID") { 
         setBaseURI (baseURI);
     }
 

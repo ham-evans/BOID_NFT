@@ -91,6 +91,7 @@ var addMetatdataURItoFile = (uri) => {
 const pinDirectoryToIPFS = () => {
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
     const src = '../../metadata/rinkeby';
+    //const src = '../../metadata/holdingData';
 
     recursive.readdirr(src, function (err, dirs, files) {
         let data = new FormData();
@@ -126,7 +127,7 @@ const pinDirectoryToIPFS = () => {
 };
 
 
-var uploadMetadataFolderToIPFS = () =>  { 
+var uploadVideosToIPFS = () =>  { 
     fs.readdir('../../video', (err, files) => {
         files = files.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
         files = files.sort()
@@ -137,6 +138,8 @@ var uploadMetadataFolderToIPFS = () =>  {
 }
 
 pinDirectoryToIPFS ();
+
+//uploadVideosToIPFS ();
 
 //uploadMetadataFolderToIPFS()
 //pinVideoToIPFS(1)

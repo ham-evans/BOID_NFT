@@ -1,12 +1,13 @@
 from typing import ForwardRef
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from random import randint, random
 import math
 from randomGeneration import randGeneration
 from time import sleep, time
-import os
 from moviepy.editor import * 
-from createMetadata import writeMetadata
+from createMetadata import writeMetadata, writeHoldingMetadata
 
 width = 600
 height = 600
@@ -172,7 +173,7 @@ def colorFade (currBoid, currBoidColor, new, steps, totalSteps):
     if currBoid == None: 
         return (updated0, updated1, updated2)
     
-    else: 
+    else:
         currBoid.color = (updated0, updated1, updated2)
 
 def colorChange(currBoid, steps):
@@ -209,6 +210,14 @@ def colorChange(currBoid, steps):
             avgColor3 = avgColor3 - adjustNum
         elif avgColor3 < currBoid.selfColor[0] and avgColor3 < 255 - adjustNum:
             avgColor3 = avgColor3 + adjustNum
+
+        
+        if avgColor1 < 225: 
+            avgColor1 += 3
+        if avgColor2 < 225: 
+            avgColor2 += 3
+        if avgColor3 < 225: 
+            avgColor3 += 3
 
         if steps <= fadeInOutSteps + fadeDelay: 
             currBoid.selfColor2 = (avgColor1, avgColor2, avgColor3)
@@ -406,7 +415,7 @@ def mainFade (saveImages, boidId):
                     
                 else: 
                     colorFade(boid, backgroundColor, boid.selfColor, steps - fadeDelay, fadeInOutSteps)
-
+                
             elif steps < forwardSteps + fadeInOutSteps + fadeDelay: 
                 if fadeColor[0]: 
                     colorFade(boid, boid.color, fadeColor[1], steps - fadeDelay - fadeInOutSteps, forwardSteps)
@@ -450,23 +459,23 @@ def mainFade (saveImages, boidId):
                 path = "/Users/hamevans/Desktop/boidImages/" + str(boidId) + "/"
                 if os.path.exists(path) == False: 
                     os.mkdir(path)
+                
                 path = os.path.join(path, str(steps) + ".png")
                 pathArray.append(path)
                 pygame.image.save(screen, path)
-
+        
     pygame.quit()
     return(pathArray)
 
 def makeMovie ():
-    boidRange = 1 #set number of boids made here!
+    boidRange = 15 #set number of boids made here!
 
     global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits, blink
     saveIt = True
     for i in range(1, boidRange+1):
         boids = []
 
-        #boidId = generateId (boidRange)
-        boidId = 6
+        boidId = generateId (boidRange)
 
         if type(boidId) != int: 
             print("Boid ID generation failed. Boid ID was: {}".format(boidId))
@@ -477,19 +486,27 @@ def makeMovie ():
             print("new boid id: {}".format(boidId))
 
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, blink, traits = randGeneration(i)
-        numBoids=20
+       
         pathArray = mainFade (saveIt, boidId)
 
         if saveIt == True:
+            pathArray = redoPathArray(pathArray)
+
             clip = ImageSequenceClip(pathArray, fps = 48)
             path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/video/", str(boidId) + ".mp4")
             clip.write_videofile(path, fps = 48)
-            clip = VideoFileClip(path)
-            path = os.path.join("/Users/hamevans/Documents/Blockchain/boidnfts/gif/", str(boidId) + ".gif")
-            clip.write_gif(path)
 
             writeMetadata(boidId, traits)
+            writeHoldingMetadata (boidId)
 
+def redoPathArray (pathArray): 
+    newArray = []
+    for i in range(len(pathArray)): 
+        if i <= forwardSteps + fadeInOutSteps - 1: 
+            newArray.append(pathArray[i + fadeDelay + fadeInOutSteps - 1])
+        else: 
+            newArray.append(pathArray[i - forwardSteps - fadeInOutSteps - 1])
+    
+    return newArray        
 
 makeMovie()
-

@@ -1,5 +1,6 @@
 require('dotenv').config();
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-etherscan");
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -14,12 +15,15 @@ module.exports = {
       chainId: 1337
     },
     ropsten: { 
-      url: process.env.REACT_APP_INFURA_API_ROPSTEN_KEY,
+      url: String(process.env.REACT_APP_INFURA_API_ROPSTEN_KEY),
       accounts: [process.env.REACT_APP_PRIVATE_KEY]
     }, 
     rinkeby: { 
-      url: process.env.REACT_APP_INFURA_API_RINKEBY_KEY,
+      url: String(process.env.REACT_APP_INFURA_API_RINKEBY_KEY),
       accounts: [process.env.REACT_APP_PRIVATE_KEY]
     }
+  },
+  etherscan: {
+    apiKey: String(process.env.REACT_APP_ETHERSCAN_API_KEY)
   }
 };

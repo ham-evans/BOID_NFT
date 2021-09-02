@@ -1,3 +1,12 @@
+const boids = await (await ethers.getContractFactory("Boids")).attach("0x64D574dd648833DEd2AC83696CC58F01332c0916")
+await boids.MAX_BOIDS()
+await boids.MAX_BOIDS
+boids
+(await boids.MAX_BOIDS()).toString()
+(await boids.MAX_BOIDS().wait()).toString()
+(await boids.MAX_BOIDS).toString()
+(await boids.MAX_BOIDS()).toString()
+const boids = await (await ethers.getContractFactory("Boids")).attach("0x64D574dd648833DEd2AC83696CC58F01332c0916")
 await boids.flipSaleState()
 (await boids.saleIsActive()).toString()
 await boids.flipSaleState()

@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import Boids from '../artifacts/contracts/Boids.sol/Boids.json';
 import bgVideo from '../images/mainBackgroundVideo.mp4';
 
-const boidsAddress = ('0x64D574dd648833DEd2AC83696CC58F01332c0916');
+const boidsAddress = '0x016FB0E9fF9709Bb51c8F1f2C817758E8b326311';
 
 export default function MintHome () {
     const [signedIn, setSignedIn] = useState(false);
@@ -108,13 +108,22 @@ export default function MintHome () {
         }
     }
 
+    async function setBaseURI () { 
+        await boidsWithSigner.flipSaleState();
+        //await boidsWithSigner.setBaseURI('https://ipfs.io/ipfs/QmQWoeA8a89VvoN2nFAf9UFypFmGAbXCwwPoJV5QbC1YiF/')
+        //console.log(await boidsContract._baseURI());
+        // FOR REVEAL QmdYaBzD9z9DGLkT1Y8cTeQ1QoKt8yYy6u5Xmacup3W31t
+    }
+
+
+
     function checkHowMany (newNumber) { 
         if (newNumber > 20) {
             setHowManyBoids(20)
         } else if (newNumber < 1) { 
             setHowManyBoids("")
         } else { 
-            setHowManyBoids(newNumber)
+            setHowManyBoids(newNumber) 
         }
     }
 
@@ -139,7 +148,7 @@ export default function MintHome () {
                         : <button onClick={signOut}>Wallet Connected<br/>Click to sign out</button>
                     }
 
-                    <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 1500</span></h3>
+                    <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 2000</span></h3>
                     
                     {signedIn ? <p>Input number of BOIDS to mint:</p>
                         : <p>Sign in above to mint BOIDS!</p>
@@ -157,6 +166,8 @@ export default function MintHome () {
                     {howManyBoids > 0 ? <button onClick={() => mintBoid()}>MINT {howManyBoids} BOID(S)</button>
                         : <button onClick={() => alert("Must mint atleast 1 BOID")}>MINT {howManyBoids} BOID(S)</button>
                     }
+
+                    <button onClick={() => setBaseURI()}>Set Base URI</button>
                     
                 </div>
             </div>
