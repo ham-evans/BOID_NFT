@@ -113,6 +113,7 @@ export default function MintHome () {
         //await boidsWithSigner.setBaseURI('https://ipfs.io/ipfs/QmQWoeA8a89VvoN2nFAf9UFypFmGAbXCwwPoJV5QbC1YiF/')
         //console.log(await boidsContract._baseURI());
         // FOR REVEAL QmdYaBzD9z9DGLkT1Y8cTeQ1QoKt8yYy6u5Xmacup3W31t
+        //https://ipfs.io/ipfs/QmdYaBzD9z9DGLkT1Y8cTeQ1QoKt8yYy6u5Xmacup3W31t/
     }
 
 
