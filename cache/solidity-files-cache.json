@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/hamevans/Documents/Blockchain/boidnfts/contracts/Boids.sol": {
-      "lastModificationDate": 1630550996393,
-      "contentHash": "8fc36259dff3fb41a9ee74da0b639c94",
+      "lastModificationDate": 1630556120378,
+      "contentHash": "77e059fdb04b098930cbb15adc482313",
       "sourceName": "contracts/Boids.sol",
       "solcConfig": {
         "version": "0.8.0",

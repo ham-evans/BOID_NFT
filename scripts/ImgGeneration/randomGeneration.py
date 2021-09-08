@@ -5,7 +5,7 @@ def randGeneration (imgNumber):
     feed = randint(1, 11)
     speedLimit = round(uniform(1.0001, 6), 6)
     linesBetween = False
-    numBoids = randint(20, 119)
+    numBoids = randint(15, 119)
     fadeColor = (False, (0,0,0))
     historyTrace = False
 
@@ -22,7 +22,7 @@ def randGeneration (imgNumber):
             colorChange = True
             fadeColor=(False, (0,0,0))
         
-    feed2 = randint(1, 5)
+    feed2 = randint(1, 3)
     if feed2 == 2: 
         linesBetween = True
 

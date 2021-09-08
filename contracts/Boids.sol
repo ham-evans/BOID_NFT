@@ -18,7 +18,7 @@ contract Boids is ERC721URIStorage, Ownable {
 
     string private _baseTokenURI;
 
-    constructor(string memory baseURI) ERC721("BOIDS", "BOID") { 
+    constructor(string memory baseURI) ERC721("BOIDS", "BOIDS") { 
         setBaseURI (baseURI);
     }
 

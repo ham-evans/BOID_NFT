@@ -388,6 +388,9 @@ def mainFade (saveImages, boidId):
     steps = 0
     pathArray=[]
 
+    if historyTrace == True: 
+        historyArr = []
+
     running = True
     while running:
         steps += 1
@@ -443,6 +446,15 @@ def mainFade (saveImages, boidId):
             if linesBetween:
                 linehistory, dontAddLine = buildGraph(boid, screen, linehistory, dontAddLine)
         
+        if historyTrace == True:
+            tempBoidHistory = []
+            for boid in boids: 
+                tempBoidHistory.append(boid.coords())
+            
+            historyArr.append(tempBoidHistory)
+            historyArr = historyArr[-50:]
+            
+        
         
         if blink == False or (round((steps / 36) % 2)) != 0:
             for line in linehistory:
@@ -468,14 +480,15 @@ def mainFade (saveImages, boidId):
     return(pathArray)
 
 def makeMovie ():
-    boidRange = 15 #set number of boids made here!
+    boidRange = 1 #set number of boids made here!
 
     global numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, imgNumber, boids, traits, blink
-    saveIt = True
+    saveIt = False
     for i in range(1, boidRange+1):
         boids = []
 
         boidId = generateId (boidRange)
+        i = 2903
 
         if type(boidId) != int: 
             print("Boid ID generation failed. Boid ID was: {}".format(boidId))
