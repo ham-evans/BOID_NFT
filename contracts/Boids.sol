@@ -39,6 +39,17 @@ contract Boids is ERC721URIStorage, Ownable {
         payable(msg.sender).transfer(balance);
     }
 
+    function mintOwner (uint numberOfTokens) public onlyOwner payable {
+        require(saleIsActive, "Sale must be active to mint a Boid");
+        require(numberOfTokens > 0 && numberOfTokens <= maxBoidPurchase, "Can only mint 20 tokens at a time");
+        require(totalSupply.add(numberOfTokens) <= MAX_BOIDS, "Purchase would exceed max supply of Boids");
+
+        for(uint i = 0; i < numberOfTokens; i++) {
+            totalSupply = totalSupply.add(1);
+            _safeMint(msg.sender, totalSupply);
+        }
+    }
+
     function mintBoid (uint numberOfTokens) public payable{
         require(saleIsActive, "Sale must be active to mint a Boid");
         require(numberOfTokens > 0 && numberOfTokens <= maxBoidPurchase, "Can only mint 20 tokens at a time");
@@ -47,9 +58,7 @@ contract Boids is ERC721URIStorage, Ownable {
         
         for(uint i = 0; i < numberOfTokens; i++) {
             totalSupply = totalSupply.add(1);
-            if (totalSupply < MAX_BOIDS) {
-                _safeMint(msg.sender, totalSupply);
-            }
+            _safeMint(msg.sender, totalSupply);
         }
     }
 }

@@ -42,6 +42,18 @@ describe("Boid contract", function () {
       expect(await contract.saleIsActive()).to.equal(true);
     })
   });
+
+  describe("Testing Mint Owner", async () => { 
+    it("Should set base uri", async function () { 
+      const numToMint = 5; 
+      await contract.flipSaleState();
+      const test = await contract.mintOwner(numToMint);
+      console.log(test)
+      console.log(await contract.balanceOf(owner.address))
+      expect(await contract.balanceOf(owner.address)).to.equal(numToMint);
+    })
+  });
+});
 /*
   describe("Minting", async () => { 
     
@@ -75,17 +87,3 @@ describe("Boid contract", function () {
     })
   });
 */
-  describe("Setting base URI", async () => { 
-    it("Should set base uri", async function () { 
-      const numToMint = 5; 
-      await contract.flipSaleState();
-      expect(await contract._baseTokenURI()).to.equal("");
-    })
-
-    it("Should change base uri", async function () { 
-      expect(await contract._baseTokenURI()).to.equal("");
-      await contract.setBaseURI("This is now the URI");
-      expect(await contract._baseURI()).to.equal("This is now the URI");
-    })
-  });
-});
