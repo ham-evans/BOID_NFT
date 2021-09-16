@@ -21,6 +21,10 @@ module.exports = {
     rinkeby: { 
       url: String(process.env.REACT_APP_INFURA_API_RINKEBY_KEY),
       accounts: [process.env.REACT_APP_PRIVATE_KEY],
+    }, 
+    mainnet: { 
+      url: String(process.env.REACT_APP_INFURA_API_MAINNET_KEY),
+      accounts: [process.env.REACT_APP_PRIVATE_KEY],
     }
   },
   etherscan: {

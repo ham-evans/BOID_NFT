@@ -359,6 +359,7 @@ def makeMovesFade (totalSteps):
 def generateId (boidRange):
     ids = []
     readIt = open('boidIds.txt', 'r')
+
     for id in readIt.readlines(): 
         try: 
             ids.append(int(id))
@@ -369,9 +370,9 @@ def generateId (boidRange):
 
     newId = randint(1, boidRange)
 
-    while newId in ids: 
+    while newId in ids and len(ids) != boidRange: 
         newId = randint(1, boidRange)
-        
+
     if newId not in ids: 
         writeIt = open('boidIds.txt', 'a')
         writeIt.write(str(newId) + '\n')
@@ -379,7 +380,6 @@ def generateId (boidRange):
     
 def mainFade (saveImages, boidId):
     initPositions()
-
     makeMovesFade (totalSteps)
 
     pygame.init()
@@ -438,23 +438,23 @@ def mainFade (saveImages, boidId):
             if historyTrace == True: 
                 boid.historyColor.append(boid.color)
                 boid.history.append([boid.x, boid.y])
-                boid.history = boid.history[-50:]
-                if blink == False or (round((steps / 36) % 2)) != 0:
-                    for i in range(0, len(boid.history) - 1):
-                        pygame.draw.circle(screen, boid.historyColor[-1 * (len(boid.history) - i)], boid.history[i], 3)
+                if len(boid.historyColor) > 50:
+                    boid.historyColor = boid.historyColor[-50:]
+                    boid.history = boid.history[-50:]
 
             if linesBetween:
                 linehistory, dontAddLine = buildGraph(boid, screen, linehistory, dontAddLine)
         
         if historyTrace == True:
-            tempBoidHistory = []
-            for boid in boids: 
-                tempBoidHistory.append(boid.coords())
+            if blink == False or (round((steps / 36) % 2)) != 0:
+                for i in range(0, len(boid.history) - 1):
+                    for boid in boids: 
+                        color = boid.historyColor[-1 * (len(boid.history) - i)]
+                        updated0 = backgroundColor[0] + ((((color[0] - backgroundColor[0]) / 50) * i))
+                        updated1 = backgroundColor[1] + ((((color[1] - backgroundColor[1]) / 50) * i))
+                        updated2 = backgroundColor[2] + ((((color[2] - backgroundColor[2]) / 50) * i))
+                        pygame.draw.circle(screen, (updated0, updated1, updated2), boid.history[i], 3)
             
-            historyArr.append(tempBoidHistory)
-            historyArr = historyArr[-50:]
-            
-        
         
         if blink == False or (round((steps / 36) % 2)) != 0:
             for line in linehistory:
@@ -486,9 +486,8 @@ def makeMovie ():
     saveIt = False
     for i in range(1, boidRange+1):
         boids = []
-
         boidId = generateId (boidRange)
-        i = 2903
+        i = 1303
 
         if type(boidId) != int: 
             print("Boid ID generation failed. Boid ID was: {}".format(boidId))
@@ -499,7 +498,10 @@ def makeMovie ():
             print("new boid id: {}".format(boidId))
 
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, blink, traits = randGeneration(i)
-       
+
+        historyTrace = True
+        linesBetween = False
+
         pathArray = mainFade (saveIt, boidId)
 
         if saveIt == True:

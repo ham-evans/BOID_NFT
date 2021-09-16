@@ -16,14 +16,13 @@ const port = 3000
 
 app.get('/metadata', async (req, res) => {
     try {
-        //const tokenId = req.query.tokenId;
-        const tokenId = 2;
+        const tokenId = req.query.tokenId;
         await contract.methods.ownerOf( tokenId ).call();
         
         const meta = await axios.get( `https://gateway.pinata.cloud/ipfs/QmdYaBzD9z9DGLkT1Y8cTeQ1QoKt8yYy6u5Xmacup3W31t/${tokenId}` )
         const data = meta.data
         
-        data.image = `/image?tokenId=${tokenId}`
+        data.image = `https://admiring-johnson-415a9a.netlify.app/image?tokenId=${tokenId}`
         res.send( data ).end()
     } catch( err ){
         res.status( 404 ).end()

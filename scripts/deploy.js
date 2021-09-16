@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 async function main () { 
     const Boids = await hre.ethers.getContractFactory("Boids");
-    const boids = await Boids.deploy("https://ipfs.io/ipfs/QmZmSamAHmMSAZYKpS3KuZS9m1ZyVbwwieUzYYdjUBMhxJ/")
+    const boids = await Boids.deploy("https://boid-router.herokuapp.com/metadata/")
     await boids.deployed();
     console.log("Boids deployed to ", boids.address);
 }

@@ -22,8 +22,8 @@ def randGeneration (imgNumber):
             colorChange = True
             fadeColor=(False, (0,0,0))
         
-    feed2 = randint(1, 3)
-    if feed2 == 2: 
+    feed2 = randint(1, 5)
+    if feed2 == 2 or feed2 == 5: 
         linesBetween = True
 
     if randint(1,25) == 14: 
@@ -98,30 +98,9 @@ def randGeneration (imgNumber):
 
 def giveTraits (numBoids, speedLimit, initialColor, backgroundColor, linesBetween, colorChange, fadeColor, historyTrace, blink): 
     colorsToWords = {(11,102,35): "Forest Green", (192,192,192): "Gray", (250,128,114): "Red", (0,0,0): "Black", (255,203,25): "Gold", (255,255,255): "White", (238,0,0): "Red", (255,128,0): "Orange", (255,255,0): "Yellow", (0,0,255): "Blue", (154,255,154): "Green", (124,252,0): "Lime", (135,206,250): "Light Blue", (0,255,255): "Aqua", (255,174,185): "Pink", "random": "Random"}
-
-    if fadeColor[0] == False: 
-        if fadeColor[1] == (0,0,0): 
-            newColor = "No Color Change"
-    else: 
-        newColor = colorsToWords[fadeColor[1]]
-
+    
     speedLimitTrait = round((speedLimit - 1) / 5, 2) * 100
     
-    if linesBetween == True: 
-        linesBetweenTrait = "Connected"
-    else: 
-        linesBetweenTrait = "Not Connected"
-    
-    if historyTrace == True: 
-        trail = "Glowing Trail"
-    else: 
-        trail = "No Trail" 
-
-    if blink == True: 
-        blinkTrait = "Blinking"
-    else: 
-        blinkTrait = "Not Blinking"
-
     traits = [
         {
             "trait_type": "Number of Boids", 
@@ -139,22 +118,39 @@ def giveTraits (numBoids, speedLimit, initialColor, backgroundColor, linesBetwee
             "trait_type": "Initial Color", 
             "value": colorsToWords[initialColor]
         },
-        {
-            "trait_type": "Color Change To", 
-            "value": newColor
-        }, 
-        {
-            "trait_type": "Connectivity", 
-            "value": linesBetweenTrait
-        },
-        {
-            "trait_type": "Trail", 
-            "value": trail
-        },
-        {
-            "trait_type": "Blink", 
-            "value": blinkTrait
-        }
     ]
 
+    if fadeColor[0] == True: 
+        newColor = colorsToWords[fadeColor[1]]
+        traits.append({
+            "trait_type": "Color Change To", 
+            "value": newColor
+        })
+        #if fadeColor[1] == (0,0,0): 
+            #newColor = "No Color Change"
+        
+    
+    if linesBetween == True: 
+        linesBetweenTrait = "Connected"
+        traits.append({
+            "trait_type": "Connectivity", 
+            "value": linesBetweenTrait
+        })
+    #else: 
+        #linesBetweenTrait = "Not Connected"
+    
+    if historyTrace == True: 
+        trail = "Glowing Trail"
+        traits.append({
+            "trait_type": "Trail", 
+            "value": trail
+        })
+
+    if blink == True: 
+        blinkTrait = "Blinking"
+        traits.append({
+            "trait_type": "Blink", 
+            "value": blinkTrait
+        })
+        
     return traits

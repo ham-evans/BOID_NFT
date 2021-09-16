@@ -9,12 +9,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Boids is ERC721URIStorage, Ownable {
     using SafeMath for uint256;
 
-    uint256 public constant MAX_BOIDS = 2000;
     uint256 public constant boidPrice = 30000000000000000; //0.03 eth
     uint public constant maxBoidPurchase = 20;
     uint256 public totalSupply = 0; 
 
     bool public saleIsActive = false;
+    uint256 public MAX_BOIDS = 2000;
 
     string private _baseTokenURI;
 
@@ -24,6 +24,10 @@ contract Boids is ERC721URIStorage, Ownable {
 
     function setBaseURI(string memory baseURI) public onlyOwner {
         _baseTokenURI = baseURI;
+    }
+
+    function setMaxBoids (uint newMaxBoids) public onlyOwner {
+        MAX_BOIDS = newMaxBoids;
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -39,15 +43,15 @@ contract Boids is ERC721URIStorage, Ownable {
         payable(msg.sender).transfer(balance);
     }
 
-    function mintOwner (uint numberOfTokens) public onlyOwner payable {
-        require(saleIsActive, "Sale must be active to mint a Boid");
+    function mintOwner (uint numberOfTokens) public onlyOwner {
         require(numberOfTokens > 0 && numberOfTokens <= maxBoidPurchase, "Can only mint 20 tokens at a time");
         require(totalSupply.add(numberOfTokens) <= MAX_BOIDS, "Purchase would exceed max supply of Boids");
 
         for(uint i = 0; i < numberOfTokens; i++) {
-            totalSupply = totalSupply.add(1);
-            _safeMint(msg.sender, totalSupply);
+            _safeMint(msg.sender, totalSupply + i + 1);
         }
+
+        totalSupply = totalSupply.add(numberOfTokens);
     }
 
     function mintBoid (uint numberOfTokens) public payable{
@@ -57,8 +61,9 @@ contract Boids is ERC721URIStorage, Ownable {
         require(msg.value >= boidPrice.mul(numberOfTokens), "Ether value sent is not correct");
         
         for(uint i = 0; i < numberOfTokens; i++) {
-            totalSupply = totalSupply.add(1);
-            _safeMint(msg.sender, totalSupply);
+            _safeMint(msg.sender, totalSupply + i + 1);
         }
+
+        totalSupply = totalSupply.add(numberOfTokens);
     }
 }
