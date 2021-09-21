@@ -1,6 +1,3 @@
-//import { createRequire } from "module";
-//const require = createRequire(import.meta.url);
-
 const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
@@ -90,19 +87,19 @@ var addMetatdataURItoFile = (uri) => {
 
 const pinDirectoryToIPFS = () => {
     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
-    const src = '../../metadata/rinkeby';
+    const src = '/Users/hamevans/Desktop/BoidsVideos1/';
     //const src = '../../metadata/holdingData';
 
     recursive.readdirr(src, function (err, dirs, files) {
         let data = new FormData();
         files.forEach((file) => {
             data.append(`file`, fs.createReadStream(file), {
-                filepath: basePathConverter(src, file.slice(0,-5))
+                filepath: basePathConverter(src, file.slice(0,-4))
             });
         });
 
         const metadata = JSON.stringify({
-            name: 'BOIDS',
+            name: 'BoidVideos',
         });
         data.append('pinataMetadata', metadata);
 
@@ -118,7 +115,6 @@ const pinDirectoryToIPFS = () => {
                 console.log('Metadata uploaded to IPFS at: ')
                 console.log(response.data.IpfsHash) ;
                 console.log()
-
             })
             .catch(function (error) {
                 console.log(error);

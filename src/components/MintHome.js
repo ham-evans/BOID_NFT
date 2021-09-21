@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import Boids from '../artifacts/contracts/Boids.sol/Boids.json';
 import bgVideo from '../images/mainBackgroundVideo.mp4';
 
-const boidsAddress = '0x016FB0E9fF9709Bb51c8F1f2C817758E8b326311';
+const boidsAddress = '0xa95aFB459ef0b3249A188164bC174180797FD192';
 
 export default function MintHome () {
     const [signedIn, setSignedIn] = useState(false);
@@ -14,18 +14,17 @@ export default function MintHome () {
     const [saleStarted, setSaleStarted] = useState(false);
     const [totalSupply, setTotalSupply] = useState(0);
     const [boidPrice, setBoidPrice] = useState(0)
-    const [howManyBoids, setHowManyBoids] = useState(1)
+    const [howManyBoids, setHowManyBoids] = useState(20)
 
     useEffect( () => { 
         signIn()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     async function signIn() {
         if (typeof window.ethereum !== 'undefined') {
             window.ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
             const network = await window.ethersProvider.getNetwork();
-            if (network.chainId === 4){
+            if (network.chainId === 1){
                 await window.ethereum.request({ method: 'eth_requestAccounts' })
                 .then(async function (accounts) {
                     if (accounts.length > 0) {
@@ -47,7 +46,7 @@ export default function MintHome () {
                 })
             } else { 
                 setSignedIn(false)
-                alert("Switch network to Rinkeby Test Network before continuing.")
+                alert("Switch network to Mainnet before continuing.")
             }
             
         } else {
@@ -101,23 +100,6 @@ export default function MintHome () {
         }
     }
 
-    async function flipSaleState () { 
-        if (boidsContract && signedIn) { 
-            await boidsWithSigner.flipSaleState()
-            console.log("New sale state: ", await boidsContract.saleIsActive())
-        }
-    }
-
-    async function setBaseURI () { 
-        //await boidsWithSigner.flipSaleState();
-        //await boidsWithSigner.setBaseURI('https://ipfs.io/ipfs/QmQWoeA8a89VvoN2nFAf9UFypFmGAbXCwwPoJV5QbC1YiF/')
-        //console.log(await boidsContract._baseURI());
-        // FOR REVEAL QmdYaBzD9z9DGLkT1Y8cTeQ1QoKt8yYy6u5Xmacup3W31t
-        //https://ipfs.io/ipfs/QmdYaBzD9z9DGLkT1Y8cTeQ1QoKt8yYy6u5Xmacup3W31t/
-    }
-
-
-
     function checkHowMany (newNumber) { 
         if (newNumber > 20) {
             setHowManyBoids(20)
@@ -144,14 +126,13 @@ export default function MintHome () {
             <div className="minthome__textcontainer">
                 <h1>BOIDS</h1>
                 <div className="bar__container">
-                    <h2>Minting is live! Mint before its too late.</h2> 
-                    {!signedIn ? <button onClick={signIn}>Connect Wallet with Metamask</button>
-                        : <button onClick={signOut}>Wallet Connected<br/>Click to sign out</button>
+                    {!signedIn ? <button onClick={signIn}>Connect Wallet</button>
+                        : <button onClick={signOut}>Wallet Connected</button>
                     }
 
                     <h3>TOTAL BOIDS MINTED:  <span> {!signedIn ?  <>-</>  :  <>{totalSupply}</> } / 2000</span></h3>
                     
-                    {signedIn ? <p>Input number of BOIDS to mint:</p>
+                    {signedIn ? <p>Input number of BOIDS to mint (0.03 ETH):</p>
                         : <p>Sign in above to mint BOIDS!</p>
                     }
 
@@ -167,9 +148,6 @@ export default function MintHome () {
                     {howManyBoids > 0 ? <button onClick={() => mintBoid()}>MINT {howManyBoids} BOID(S)</button>
                         : <button onClick={() => alert("Must mint atleast 1 BOID")}>MINT {howManyBoids} BOID(S)</button>
                     }
-
-                    <button onClick={() => setBaseURI()}>Set Base URI</button>
-                    
                 </div>
             </div>
         </div>

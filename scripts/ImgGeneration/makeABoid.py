@@ -30,8 +30,8 @@ totalSteps = forwardSteps + (2 * fadeInOutSteps) + fadeDelay
 class Boid:
     def __init__(self, number, initialColor):
         self.number = number
-        self.x = randint(0, width)
-        self.y = randint(0, height)
+        self.x = randint(-200, width + 200)
+        self.y = randint(-200, height+200)
         self.dx = (random() * 10) - 5
         self.dy = (random() * 10) - 5
         self.slowDx = 0
@@ -162,9 +162,9 @@ def colorFade (currBoid, currBoidColor, new, steps, totalSteps):
         new = currBoid.randomFade
 
     if totalSteps == forwardSteps:
-        updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps) / 30)
-        updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps) / 30)
-        updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps) / 30)
+        updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps) / 60)
+        updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps) / 60)
+        updated2 = currBoidColor[2] + ((((new[2] - currBoidColor[2]) / totalSteps) * steps) / 60)
     else: 
         updated0 = currBoidColor[0] + ((((new[0] - currBoidColor[0]) / totalSteps) * steps))
         updated1 = currBoidColor[1] + ((((new[1] - currBoidColor[1]) / totalSteps) * steps))
@@ -177,7 +177,7 @@ def colorFade (currBoid, currBoidColor, new, steps, totalSteps):
         currBoid.color = (updated0, updated1, updated2)
 
 def colorChange(currBoid, steps):
-    adjustNum = 15
+    adjustNum = 10
     avgColor1 = 0
     avgColor2 = 0
     avgColor3 = 0
@@ -210,15 +210,7 @@ def colorChange(currBoid, steps):
             avgColor3 = avgColor3 - adjustNum
         elif avgColor3 < currBoid.selfColor[0] and avgColor3 < 255 - adjustNum:
             avgColor3 = avgColor3 + adjustNum
-
         
-        if avgColor1 < 225: 
-            avgColor1 += 3
-        if avgColor2 < 225: 
-            avgColor2 += 3
-        if avgColor3 < 225: 
-            avgColor3 += 3
-
         if steps <= fadeInOutSteps + fadeDelay: 
             currBoid.selfColor2 = (avgColor1, avgColor2, avgColor3)
         else: 
@@ -486,8 +478,9 @@ def makeMovie ():
     saveIt = False
     for i in range(1, boidRange+1):
         boids = []
-        boidId = generateId (boidRange)
+        #boidId = generateId (boidRange)
         i = 1303
+        boidId = i
 
         if type(boidId) != int: 
             print("Boid ID generation failed. Boid ID was: {}".format(boidId))
@@ -498,10 +491,7 @@ def makeMovie ():
             print("new boid id: {}".format(boidId))
 
         numBoids, speedLimit, initialColor, backgroundColor, linesBetween, changeColor, fadeColor, historyTrace, blink, traits = randGeneration(i)
-
-        historyTrace = True
-        linesBetween = False
-
+        numBoids=120
         pathArray = mainFade (saveIt, boidId)
 
         if saveIt == True:

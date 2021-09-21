@@ -17,7 +17,6 @@ export default function Mint () {
 
     useEffect( () => { 
         signIn()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     async function isWalletAllowed (){
@@ -33,7 +32,6 @@ export default function Mint () {
 
     async function getWalletAccounts () {
         const isAllowed = await isWalletAllowed()
-    
         //because of the "null" case above, this will still attempt the request in mobile wallets
         if( isAllowed !== false){
           try{

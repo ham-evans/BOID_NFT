@@ -1,5 +1,5 @@
 .minthome { 
-    height: calc(100vh - 120px);
+    height: calc(100vh - 100px);
     width: 100%;
 }
 
@@ -13,7 +13,7 @@
 .minthome h1 { 
     padding-top: 1%;
     color: #fff;
-    font-size: 9rem;
+    font-size: 11rem;
 }
 
 .minthome h2{ 
@@ -26,7 +26,7 @@
 .minthome h3{ 
     color: #fff;
     text-align: center;
-    margin: 45px 25px 0 25px;
+    margin: 15px 25px 0 25px;
     font-size: 1.7rem;
 }
 

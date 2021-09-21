@@ -8,6 +8,7 @@
   }
 
   .bar__container {
+    width: 38vw;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -17,6 +18,7 @@
   }
   
   .bar__container button {
+    height: 55px;
     padding: 8px 32px;
     border-radius: 10px;
     background-color: #000;
@@ -24,8 +26,13 @@
     cursor: pointer;
     transition: all 0.35s;
     margin: 6px 0;
-    width: 65%;
+    width: 70%;
     border: 2px solid #fff;
+    font-size: 1.4rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
   }
 
   .bar__container input { 

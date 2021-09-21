@@ -36,20 +36,20 @@ class Navbar extends Component {
             </li>
             <li className="nav-item">
               <HashLink
-                smooth 
-                to="#thealgorithm"
-                className="nav-links"
-              >
-                THE ALGORITHM
-              </HashLink>
-            </li>
-            <li className="nav-item">
-              <HashLink
                 smooth
                 to="#diffboids"
                 className="nav-links"
               >
                 THE ART
+              </HashLink>
+            </li>
+            <li className="nav-item">
+              <HashLink
+                smooth 
+                to="#thealgorithm"
+                className="nav-links"
+              >
+                THE ALGORITHM
               </HashLink>
             </li>
             <li className="nav-item">
