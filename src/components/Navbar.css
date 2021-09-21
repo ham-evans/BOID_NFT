@@ -84,6 +84,7 @@
   }
   
   @media screen and (max-width: 960px) {
+    
     .nav-logo { 
       font-size: 2.3rem;
       margin-left: 25px;
@@ -99,6 +100,7 @@
       opacity: 1;
       transition: all 0.5s ease;
       margin-right: 0;
+      
     }
   
     .nav-menu.active {
@@ -109,6 +111,8 @@
       right: 0px;
       opacity: 1;
       transition: all 0.5s ease;
+      overflow-x: visible;
+
     }
 
     .nav-item .active {
