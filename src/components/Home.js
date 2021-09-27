@@ -21,9 +21,8 @@ class Home extends Component {
                 <div className="home__textcontainer">
                     <h1>BOIDS</h1>
                     <h3 className="home_textcontainer-spiel">A collection of 2000 emergent video art pieces deployed on the ERC-721 token</h3>
-                    <Link className="welcome-links" to={{ pathname: "https://opensea.io/collection/boids-nft" }} target="_blank" rel="noreferrer">
-                        <button className="home__textButton"><a>View on OpenSea</a></button>
-                    </Link>
+                    <button className="home__textButton"><Link  to={{ pathname: "https://opensea.io/collection/boids-nft" }} target="_blank" rel="noreferrer">View on OpenSea</Link></button>
+                    
 
                 </div>
             </div>
