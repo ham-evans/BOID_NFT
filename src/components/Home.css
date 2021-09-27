@@ -23,6 +23,23 @@
     font-size: 1.4rem;
 }
 
+.home__textButton { 
+    padding: 8px 32px;
+    border-radius: 15px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.35s;
+    margin: 6px 0;
+    width: 20%;
+    border: 2px solid #fff;
+}
+
+.home__textButton:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
 .home_textcontainer-launch { 
     color: #fff;
     text-align: center;
