@@ -32,7 +32,7 @@
     cursor: pointer;
     transition: all 0.35s;
     margin: 6px 0;
-    width: 60%;
+    width: 25%;
     border: 2px solid #fff;
 }
 
@@ -81,5 +81,9 @@
         text-align: center;
         margin: 10px 25px;
         font-size: 1.3rem;
+    }
+
+    .home__textButton { 
+        width: 60%;
     }
 }
